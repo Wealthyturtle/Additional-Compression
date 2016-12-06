@@ -1,5 +1,5 @@
-# Universal Singularities
-The Official Github Repository of the Mod, <a href="https://minecraft.curseforge.com/projects/universal-singularities">Universal Singularities</a>!
+# Additional Compression
+The Official Github Repository of the Mod, <a href="https://minecraft.curseforge.com/projects/additional-compression">Additional Compression</a>!
 
 Made and Maintained By:
-<a href="https://github.com/Wealthyturtle">Wealthyturtle</a> and <a href="https://github.com/Wanioncane">WanionCane</a>
+<a href="https://github.com/Wealthyturtle">Wealthyturtle</a>
