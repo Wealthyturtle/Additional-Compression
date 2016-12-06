@@ -6,9 +6,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 
-public class compressedCobblestone9x extends Block {
+public class compressedCobblestone10x extends Block {
 
-	public compressedCobblestone9x(Material material) {
+	public compressedCobblestone10x(Material material) {
 		super(material);
 		
 		this.setHardness(3.0F);
