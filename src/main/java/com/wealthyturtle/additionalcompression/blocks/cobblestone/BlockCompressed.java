@@ -13,6 +13,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 public class BlockCompressed extends Block {
 
@@ -44,6 +45,10 @@ public class BlockCompressed extends Block {
 
 	public int damageDropped(int meta) {
 		return meta;
+	}
+
+	public float getBlockHardness(World world, int x, int y, int z) {
+		return 3.0F * (world.getBlockMetadata(x, y, z) + 1);
 	}
 
 	@SideOnly(Side.CLIENT)

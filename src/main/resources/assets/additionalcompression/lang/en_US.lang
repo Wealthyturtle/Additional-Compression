@@ -3,6 +3,19 @@
 
 //Contact Wealthyturtle If You Would Like to Volunteer to Create a Localization File for Another Language.
 
-//Compressed Cobblestone
-tile.compressedCobblestone9x.name=Nonuple Compressed Cobblestone
-//Compressed Cobblestone
+//Compresseion levels
+compression.level.1.name=Single Compressed
+compression.level.2.name=Double Compressed
+compression.level.3.name=Triple Compressed
+compression.level.4.name=Quadruple Compressed
+compression.level.5.name=Quintuple Compressed
+compression.level.6.name=Sextuple Compressed
+compression.level.7.name=Septuple Compressed
+compression.level.8.name=Octuple Compressed
+compression.level.9.name=Nonuple Compressed
+compression.level.10.name=Decuple Compressed
+//Compresseion levels
+
+//Compressed blocks
+tile.compressed.cobble.name=%s Cobblestone
+//Compressed blocks

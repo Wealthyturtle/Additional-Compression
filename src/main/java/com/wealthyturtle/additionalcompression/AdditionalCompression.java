@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 
 import com.wealthyturtle.additionalcompression.blocks.cobblestone.BlockCompressed;
+import com.wealthyturtle.additionalcompression.blocks.cobblestone.ItemBlockCompressed;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -33,9 +34,8 @@ public class AdditionalCompression {
 
 	@EventHandler
 	public void preInit(FMLInitializationEvent preEvent) {
-		compressedCobblestone = new BlockCompressed(Material.rock, "cobble")
-				.setBlockName("compressedCobblestone");
-		GameRegistry.registerBlock(compressedCobblestone, "CompressedCobblestone");
+		compressedCobblestone = new BlockCompressed(Material.rock, "cobble").setBlockName("compressed.cobble");
+		GameRegistry.registerBlock(compressedCobblestone, ItemBlockCompressed.class, "compressed_cobblestone");
 	}
 
 	@EventHandler
