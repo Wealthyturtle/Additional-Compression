@@ -3,6 +3,9 @@
 
 //Contact Wealthyturtle If You Would Like to Volunteer to Create a Localization File for Another Language.
 
+//Creative tab
+itemGroup.additionalcompression=Adidional Compression
+
 //Compresseion levels
 compression.level.1.name=Single Compressed
 compression.level.2.name=Double Compressed
@@ -14,10 +17,9 @@ compression.level.7.name=Septuple Compressed
 compression.level.8.name=Octuple Compressed
 compression.level.9.name=Nonuple Compressed
 compression.level.10.name=Decuple Compressed
-//Compresseion levels
 
 //Compressed blocks
-tile.compressed.cobble.name=%s Cobblestone
+tile.compressed.cobblestone.name=%s Cobblestone
 tile.compressed.stone.name=%s Stone
 tile.compressed.gravel.name=%s Gravel
 tile.compressed.sand.name=%s Sand
@@ -29,4 +31,3 @@ tile.compressed.soulsand.name=%s Soul Sand
 tile.compressed.endstone.name=%s End Stone
 
 tile.compressed.dust.name=%s Dust
-//Compressed blocks

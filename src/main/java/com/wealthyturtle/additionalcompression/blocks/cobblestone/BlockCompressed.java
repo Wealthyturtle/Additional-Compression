@@ -18,19 +18,20 @@ import net.minecraft.world.World;
 public class BlockCompressed extends Block {
 
 	private final int maxCompression = 10;
+	Float miningSpeed = 3.0F;
 	String basicBlock;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] blockIcons;
 
-	public BlockCompressed(Material material, String base) {
+	public BlockCompressed(Material material, String base, Float hardness, Block.SoundType soundType) {
 		super(material);
 
-		this.basicBlock = base;
+		basicBlock = base;
+		miningSpeed = hardness;
 
-		this.setHardness(3.0F);
-		this.setResistance(2000000.0F);
-		this.setStepSound(soundTypeStone);
+		setHardness(hardness);
+		setStepSound(soundType);
 		setCreativeTab(AdditionalCompression.creativeTabs);
 	}
 
@@ -48,7 +49,7 @@ public class BlockCompressed extends Block {
 	}
 
 	public float getBlockHardness(World world, int x, int y, int z) {
-		return 3.0F * (world.getBlockMetadata(x, y, z) + 1);
+		return miningSpeed * (world.getBlockMetadata(x, y, z) + 2);
 	}
 
 	@SideOnly(Side.CLIENT)
