@@ -18,4 +18,15 @@ compression.level.10.name=Decuple Compressed
 
 //Compressed blocks
 tile.compressed.cobble.name=%s Cobblestone
+tile.compressed.stone.name=%s Stone
+tile.compressed.gravel.name=%s Gravel
+tile.compressed.sand.name=%s Sand
+tile.compressed.dirt.name=%s Dirt
+tile.compressed.clay.name=%s Clay
+tile.compressed.cobblemossy.name=%s Mossy Cobblestone
+tile.compressed.netherrack.name=%s Netherrack
+tile.compressed.soulsand.name=%s Soul Sand
+tile.compressed.endstone.name=%s End Stone
+
+tile.compressed.dust.name=%s Dust
 //Compressed blocks
