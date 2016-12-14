@@ -25,9 +25,11 @@ tile.compressed.gravel.name=%s Gravel
 tile.compressed.sand.name=%s Sand
 tile.compressed.dirt.name=%s Dirt
 tile.compressed.clay.name=%s Clay
-tile.compressed.cobblemossy.name=%s Mossy Cobblestone
+tile.compressed.cobblestonemossy.name=%s Mossy Cobblestone
 tile.compressed.netherrack.name=%s Netherrack
 tile.compressed.soulsand.name=%s Soul Sand
 tile.compressed.endstone.name=%s End Stone
 
 tile.compressed.dust.name=%s Dust
+tile.compressed.gravelnether.name=%s Crushed Netherrack
+tile.compressed.gravelend.name=%s Crushed End Stone

@@ -21,8 +21,8 @@ public class CompressedBlockRegistry {
 	static List<StringBlockPair> compressedBlocks= new ArrayList<StringBlockPair>();
 
 	public static void registerCompressableBlock(String name, Block base, int meta) {
-		Block compressedBlock = new BlockCompressed(base.getMaterial(), name, base.getBlockHardness(null, 0, 0, 0), base.stepSound).setBlockName("compressed." + name);
-		GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name);
+		Block compressedBlock = new BlockCompressed(base.getMaterial(), name.toLowerCase(), base.getBlockHardness(null, 0, 0, 0), base.stepSound).setBlockName("compressed." + name.toLowerCase());
+		GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name.toLowerCase());
 		compressedBlocks.add(new StringBlockPair(name, compressedBlock, base, meta));
 	}
 

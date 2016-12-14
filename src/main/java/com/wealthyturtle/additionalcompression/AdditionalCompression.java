@@ -45,13 +45,16 @@ public class AdditionalCompression {
 		CompressedBlockRegistry.registerCompressableBlock("sand", Blocks.sand, 0);
 		CompressedBlockRegistry.registerCompressableBlock("dirt", Blocks.dirt, 0);
 		CompressedBlockRegistry.registerCompressableBlock("clay", Blocks.clay, 0);
-		CompressedBlockRegistry.registerCompressableBlock("cobblemossy", Blocks.mossy_cobblestone, 0);
+		CompressedBlockRegistry.registerCompressableBlock("cobblestoneMossy", Blocks.mossy_cobblestone, 0);
 		CompressedBlockRegistry.registerCompressableBlock("netherrack", Blocks.netherrack, 0);
 		CompressedBlockRegistry.registerCompressableBlock("soulsand", Blocks.soul_sand, 0);
 		CompressedBlockRegistry.registerCompressableBlock("endstone", Blocks.end_stone, 0);
-		if (Loader.isModLoaded("exnihilo"))
+		if (Loader.isModLoaded("exnihilo")) {
 			CompressedBlockRegistry.registerCompressableBlock("dust", GameRegistry.findBlock("exnihilo", "dust"), 0);
-
+			CompressedBlockRegistry.registerCompressableBlock("gravelNether", GameRegistry.findBlock("exnihilo", "exnihilo.gravel_nether"), 0);
+			CompressedBlockRegistry.registerCompressableBlock("gravelEnd", GameRegistry.findBlock("exnihilo", "exnihilo.gravel_ender"), 0);
+		};
+		
 		CompressedBlockRegistry.init();
 	}
 
