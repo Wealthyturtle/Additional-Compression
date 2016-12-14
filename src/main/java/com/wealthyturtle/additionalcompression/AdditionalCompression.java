@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 import com.wealthyturtle.additionalcompression.blocks.cobblestone.BlockCompressed;
@@ -35,26 +36,27 @@ public class AdditionalCompression {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent preEvent) {
+		CompressedBlockRegistry.registerCompressableBlock("cobblestone", Item.getItemFromBlock(Blocks.cobblestone), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("stone", Item.getItemFromBlock(Blocks.stone), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("gravel", Item.getItemFromBlock(Blocks.gravel), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("sand", Item.getItemFromBlock(Blocks.sand), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("dirt", Item.getItemFromBlock(Blocks.dirt), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("clay", Item.getItemFromBlock(Blocks.clay), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("cobblestoneMossy", Item.getItemFromBlock(Blocks.mossy_cobblestone), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("flint", Items.flint, 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("netherrack", Item.getItemFromBlock(Blocks.netherrack), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("soulsand", Item.getItemFromBlock(Blocks.soul_sand), 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("endstone", Item.getItemFromBlock(Blocks.end_stone), 0, 10);
+		if (Loader.isModLoaded("exnihilo")) {
+			CompressedBlockRegistry.registerCompressableBlock("dust", GameRegistry.findItem("exnihilo", "dust"), 0, 10);
+			CompressedBlockRegistry.registerCompressableBlock("gravelNether", GameRegistry.findItem("exnihilo", "exnihilo.gravel_nether"), 0, 10);
+			CompressedBlockRegistry.registerCompressableBlock("gravelEnd", GameRegistry.findItem("exnihilo", "exnihilo.gravel_ender"), 0, 10);
+		};
+		CompressedBlockRegistry.registerCompressableBlock("cropCarrot", Items.carrot, 0, 1);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		CompressedBlockRegistry.registerCompressableBlock("cobblestone", Blocks.cobblestone, 0);
-		CompressedBlockRegistry.registerCompressableBlock("stone", Blocks.stone, 0);
-		CompressedBlockRegistry.registerCompressableBlock("gravel", Blocks.gravel, 0);
-		CompressedBlockRegistry.registerCompressableBlock("sand", Blocks.sand, 0);
-		CompressedBlockRegistry.registerCompressableBlock("dirt", Blocks.dirt, 0);
-		CompressedBlockRegistry.registerCompressableBlock("clay", Blocks.clay, 0);
-		CompressedBlockRegistry.registerCompressableBlock("cobblestoneMossy", Blocks.mossy_cobblestone, 0);
-		CompressedBlockRegistry.registerCompressableBlock("netherrack", Blocks.netherrack, 0);
-		CompressedBlockRegistry.registerCompressableBlock("soulsand", Blocks.soul_sand, 0);
-		CompressedBlockRegistry.registerCompressableBlock("endstone", Blocks.end_stone, 0);
-		if (Loader.isModLoaded("exnihilo")) {
-			CompressedBlockRegistry.registerCompressableBlock("dust", GameRegistry.findBlock("exnihilo", "dust"), 0);
-			CompressedBlockRegistry.registerCompressableBlock("gravelNether", GameRegistry.findBlock("exnihilo", "exnihilo.gravel_nether"), 0);
-			CompressedBlockRegistry.registerCompressableBlock("gravelEnd", GameRegistry.findBlock("exnihilo", "exnihilo.gravel_ender"), 0);
-		};
-		
 		CompressedBlockRegistry.init();
 	}
 

@@ -7,6 +7,7 @@
 itemGroup.additionalcompression=Adidional Compression
 
 //Compresseion levels
+compression.level.0.name=Block of
 compression.level.1.name=Single Compressed
 compression.level.2.name=Double Compressed
 compression.level.3.name=Triple Compressed
@@ -26,9 +27,11 @@ tile.compressed.sand.name=%s Sand
 tile.compressed.dirt.name=%s Dirt
 tile.compressed.clay.name=%s Clay
 tile.compressed.cobblestonemossy.name=%s Mossy Cobblestone
+tile.compressed.flint.name=%s Flint
 tile.compressed.netherrack.name=%s Netherrack
 tile.compressed.soulsand.name=%s Soul Sand
 tile.compressed.endstone.name=%s End Stone
+tile.compressed.cropcarrot.name=%s Carrots
 
 tile.compressed.dust.name=%s Dust
 tile.compressed.gravelnether.name=%s Crushed Netherrack
