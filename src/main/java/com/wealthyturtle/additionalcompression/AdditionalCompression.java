@@ -36,46 +36,44 @@ public class AdditionalCompression {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent preEvent) {
-		CompressedBlockRegistry.registerCompressableBlock("cobblestone", Item.getItemFromBlock(Blocks.cobblestone), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("stone", Item.getItemFromBlock(Blocks.stone), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("gravel", Item.getItemFromBlock(Blocks.gravel), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("sand", Item.getItemFromBlock(Blocks.sand), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("dirt", Item.getItemFromBlock(Blocks.dirt), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("clay", Item.getItemFromBlock(Blocks.clay), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("cobblestoneMossy", Item.getItemFromBlock(Blocks.mossy_cobblestone), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("flint", Items.flint, 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("netherrack", Item.getItemFromBlock(Blocks.netherrack), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("soulsand", Item.getItemFromBlock(Blocks.soul_sand), 0, 10);
-		CompressedBlockRegistry.registerCompressableBlock("endstone", Item.getItemFromBlock(Blocks.end_stone), 0, 10);
-		if (Loader.isModLoaded("exnihilo")) {
-			CompressedBlockRegistry.registerCompressableBlock("dust", GameRegistry.findItem("exnihilo", "dust"), 0, 10);
-			CompressedBlockRegistry.registerCompressableBlock("gravelNether", GameRegistry.findItem("exnihilo", "exnihilo.gravel_nether"), 0, 10);
-			CompressedBlockRegistry.registerCompressableBlock("gravelEnd", GameRegistry.findItem("exnihilo", "exnihilo.gravel_ender"), 0, 10);
-		};
-		CompressedBlockRegistry.registerCompressableBlock("cropCarrot", Items.carrot, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("netherstar", Items.nether_star, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("charcoal", Items.coal, 1, 1);
-		CompressedBlockRegistry.registerCompressableBlock("apple", Items.apple, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("bread", Items.bread, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("porkchop", Items.porkchop, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("fish", Items.fish, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("cookie", Items.cookie, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("melon", Items.melon, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("beef", Items.beef, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("chicken", Items.chicken, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("rottenflesh", Items.rotten_flesh, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("spidereye", Items.spider_eye, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("cropPotato", Items.potato, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("string", Items.string, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("feather", Items.feather, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("dustGunpowder", Items.gunpowder, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("cropWheat", Items.wheat, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("leather", Items.leather, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("cropSugarcane", Items.reeds, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("egg", Items.egg, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("dustSugar", Items.sugar, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("blaze", Items.blaze_rod, 0, 1);
-		CompressedBlockRegistry.registerCompressableBlock("pearlEnder", Items.ender_pearl, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cobblestone", "minecraft", "cobblestone", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("stone", "minecraft", "stone", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("gravel", "minecraft", "gravel", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("sand", "minecraft", "sand", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("dirt", "minecraft", "dirt", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("clay", "minecraft", "clay", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("cobblestoneMossy", "minecraft", "mossy_cobblestone", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("flint", "minecraft", "flint", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("netherrack", "minecraft", "netherrack", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("soulsand", "minecraft", "soul_sand", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("endstone", "minecraft", "end_stone", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("dust", "exnihilo", "dust", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("gravelNether", "exnihilo", "exnihilo.gravel_nether", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("gravelEnd", "exnihilo", "exnihilo.gravel_ender", 0, 10);
+		CompressedBlockRegistry.registerCompressableBlock("cropCarrot", "minecraft", "carrot", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("netherstar", "minecraft", "nether_star", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("charcoal", "minecraft", "coal", 1, 1);
+		CompressedBlockRegistry.registerCompressableBlock("apple", "minecraft", "apple", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("bread", "minecraft", "bread", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("porkchop", "minecraft", "porkchop", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("fish", "minecraft", "fish", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cookie", "minecraft", "cookie", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("melon", "minecraft", "melon", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("beef", "minecraft", "beef", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("chicken", "minecraft", "chicken", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("rottenflesh", "minecraft", "rotten_flesh", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("spidereye", "minecraft", "spider_eye", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cropPotato", "minecraft", "potato", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("string", "minecraft", "string", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("feather", "minecraft", "feather", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("dustGunpowder", "minecraft", "gunpowder", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cropWheat", "minecraft", "wheat", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("leather", "minecraft", "leather", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cropSugarcane", "minecraft", "reeds", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("egg", "minecraft", "egg", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("dustSugar", "minecraft", "sugar", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("blaze", "minecraft", "blaze_rod", 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("pearlEnder", "minecraft", "ender_pearl", 0, 1);
 	}
 
 	@EventHandler
