@@ -11,16 +11,17 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
-public class ItemBlockCompressedSimple extends ItemBlockWithMetadata {
+public class ItemBlockCompressedSimple extends ItemBlock {
 
 	public ItemBlockCompressedSimple(Block block) {
-		super(block, block);
+		super(block);
 	}
 
 	public String getItemStackDisplayName(ItemStack item) {
