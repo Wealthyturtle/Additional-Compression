@@ -53,6 +53,29 @@ public class AdditionalCompression {
 			CompressedBlockRegistry.registerCompressableBlock("gravelEnd", GameRegistry.findItem("exnihilo", "exnihilo.gravel_ender"), 0, 10);
 		};
 		CompressedBlockRegistry.registerCompressableBlock("cropCarrot", Items.carrot, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("netherstar", Items.nether_star, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("charcoal", Items.coal, 1, 1);
+		CompressedBlockRegistry.registerCompressableBlock("apple", Items.apple, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("bread", Items.bread, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("porkchop", Items.porkchop, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("fish", Items.fish, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cookie", Items.cookie, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("melon", Items.melon, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("beef", Items.beef, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("chicken", Items.chicken, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("rottenflesh", Items.rotten_flesh, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("spidereye", Items.spider_eye, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cropPotato", Items.potato, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("string", Items.string, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("feather", Items.feather, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("dustGunpowder", Items.gunpowder, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cropWheat", Items.wheat, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("leather", Items.leather, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("cropSugarcane", Items.reeds, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("egg", Items.egg, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("dustSugar", Items.sugar, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("blaze", Items.blaze_rod, 0, 1);
+		CompressedBlockRegistry.registerCompressableBlock("pearlEnder", Items.ender_pearl, 0, 1);
 	}
 
 	@EventHandler
