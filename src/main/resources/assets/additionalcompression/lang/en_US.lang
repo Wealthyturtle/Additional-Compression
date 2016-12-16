@@ -1,12 +1,12 @@
 //en_US Localization File - Additional Compression
-//Creator of Localization File: Wealthyturtle
+//Creator of Localization File: RCXCrafter, Wealthyturtle
 
-//Contact Wealthyturtle If You Would Like to Volunteer to Create a Localization File for Another Language.
+//Contact RCXCrafter / Wealthyturtle If You Would Like to Volunteer to Create a Localization File for Another Language.
 
-//Creative tab
+//Creative Tab
 itemGroup.additionalcompression=Adidional Compression
 
-//Compresseion levels
+//Compression Levels
 compression.level.0.name=Block of
 compression.level.1.name=Single Compressed
 compression.level.2.name=Double Compressed
@@ -19,7 +19,7 @@ compression.level.8.name=Octuple Compressed
 compression.level.9.name=Nonuple Compressed
 compression.level.10.name=Decuple Compressed
 
-//Compressed blocks
+//Compressed Block Types (Vanilla Minecraft)
 tile.compressed.cobblestone.name=%s Cobblestone
 tile.compressed.stone.name=%s Stone
 tile.compressed.gravel.name=%s Gravel
@@ -33,6 +33,7 @@ tile.compressed.soulsand.name=%s Soul Sand
 tile.compressed.endstone.name=%s End Stone
 tile.compressed.cropcarrot.name=%s Carrots
 
+//Compressed Block Types (Ex Nihilo)
 tile.compressed.dust.name=%s Dust
 tile.compressed.gravelnether.name=%s Crushed Netherrack
 tile.compressed.gravelend.name=%s Crushed End Stone
