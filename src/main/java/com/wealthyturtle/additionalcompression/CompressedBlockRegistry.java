@@ -22,8 +22,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class CompressedBlockRegistry {
 
-	static List<CompressedInfos> compressedBlocks= new ArrayList<CompressedInfos>();
-	static List<CompressedInfos> compressedBlocksSimple= new ArrayList<CompressedInfos>();
+	static List<CompressedInfos> compressedBlocks = new ArrayList<CompressedInfos>();
 
 	public static void registerCompressableBlock(String name, String modID, String itemID, int meta, int max) {
 		if (!Loader.isModLoaded(modID) && !modID.equals("minecraft"))
@@ -37,7 +36,7 @@ public class CompressedBlockRegistry {
 		else {
 			compressedBlock = new BlockCompressed(name.toLowerCase(), max).setBlockName("compressed." + name.toLowerCase());
 			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name.toLowerCase());	
-		};
+		}
 		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max));
 	}
 
@@ -68,9 +67,9 @@ public class CompressedBlockRegistry {
 				if (!(i >= block.maxCompression - 1)) {
 					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, i + 1), "XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"));
 					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 9, i), "X", 'X', compressedName + (i + 2) + "x"));
-				};
+				}
 			}
-		};
+		}
 	}
 
 	public static class CompressedInfos {
