@@ -43,7 +43,7 @@ public class ConfigHandler {
     		"meatPorkchop:minecraft:porkchop:0:1",
     		"meatFish:minecraft:fish:0:1",
     		"cookie:minecraft:cookie:0:1",
-    		"cropMelon:minecraft:melon:0:1",
+    		//"cropMelon:minecraft:melon:0:1",
     		"meatBeef:minecraft:beef:0:1",
     		"meatChicken:minecraft:chicken:0:1",
     		"meatRotten:minecraft:rotten_flesh:0:1",
@@ -52,7 +52,7 @@ public class ConfigHandler {
     		"string:minecraft:string:0:1",
     		"feather:minecraft:feather:0:1",
     		"dustGunpowder:minecraft:gunpowder:0:1",
-    		"cropWheat:minecraft:wheat:0:1",
+    		//"cropWheat:minecraft:wheat:0:1",
     		"leather:minecraft:leather:0:1",
     		"cropSugarcane:minecraft:reeds:0:1",
     		"egg:minecraft:egg:0:1",
@@ -78,6 +78,10 @@ public class ConfigHandler {
 						+ "\nItemMetadata: The metadata value of the item/block you want to compress, most of the time this is 0."
 						+ "\nMaxCompressionLevel: The maximum level you want the item/block to be compressed to, setting this below 1 or above 10 will probably mess things up.");
 
+		config.setCategoryComment(compatibility, "This is where you can disable mod compatibility with specific mods, compatibility will never be loaded if the required mod isn't installed.");
+
+		extraUtils = config.getBoolean("extraUtils", compatibility, extraUtils, "default: true");
+		exCompressum = config.getBoolean("exCompressum", compatibility, exCompressum, "default: true");
 
 		config.save();
 	}

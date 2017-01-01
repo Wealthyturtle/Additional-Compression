@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import com.wealthyturtle.additionalcompression.blocks.cobblestone.BlockCompressed;
 import com.wealthyturtle.additionalcompression.blocks.cobblestone.BlockCompressedSimple;
 import com.wealthyturtle.additionalcompression.blocks.cobblestone.ItemBlockCompressed;
 import com.wealthyturtle.additionalcompression.blocks.cobblestone.ItemBlockCompressedSimple;
 
+import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -58,6 +61,11 @@ public class CompressedBlockRegistry {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', blockName));
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', compressedName + "1x"));
 			
+			if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
+				GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), 2));
+			}
+			System.out.println(GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)));
+			
 			if (block.maxCompression > 1)
 				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 1), "XXX", "XXX", "XXX", 'X', blockName));
 
@@ -87,6 +95,21 @@ public class CompressedBlockRegistry {
 			itemID = item;
 			baseMeta = meta;
 			maxCompression = max;
+		}
+	}
+
+	private static class CompressedBlockFuelHandler implements IFuelHandler {
+		private final Item compressedBlock;
+		private final int burnTime;
+
+		private CompressedBlockFuelHandler(@Nonnull final Item compressedBlock, final int burnTime) {
+			this.compressedBlock = compressedBlock;
+			this.burnTime = burnTime;
+		}
+
+		@Override
+		public int getBurnTime(final ItemStack fuel) {
+			return fuel != null && fuel.getItem() == compressedBlock ? burnTime * 9 ^ (fuel.getItemDamage() + 1) : 0;
 		}
 	}
 }

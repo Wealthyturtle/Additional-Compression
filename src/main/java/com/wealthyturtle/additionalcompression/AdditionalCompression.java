@@ -1,5 +1,7 @@
 package com.wealthyturtle.additionalcompression;
 
+import net.blay09.mods.excompressum.registry.CompressedHammerRegistry;
+import net.blay09.mods.excompressum.registry.HeavySieveRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,6 +24,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import exnihilo.registries.HammerRegistry;
 
 @Mod(modid = AdditionalCompression.MODID, version = AdditionalCompression.VERSION)
 
@@ -56,6 +59,8 @@ public class AdditionalCompression {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		//proxy.init(event);
+		//CompressedHammerRegistry.register(Blocks.bedrock, 0, Item.getItemFromBlock(Blocks.gravel), 0, 9.0F, 0.0F);
+		//HeavySieveRegistry.register(Blocks.bedrock, 0, Item.getItemFromBlock(Blocks.gravel), 0, 9);
 		CompressedBlockRegistry.init();
 	}
 
