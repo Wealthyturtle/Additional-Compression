@@ -25,7 +25,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class CompressedBlockRegistry {
 
-	static List<CompressedInfos> compressedBlocks = new ArrayList<CompressedInfos>();
+	public static List<CompressedInfos> compressedBlocks = new ArrayList<CompressedInfos>();
 
 	public static void registerCompressableBlock(String name, String modID, String itemID, int meta, int max) {
 		if (!Loader.isModLoaded(modID) && !modID.equals("minecraft"))
@@ -43,7 +43,7 @@ public class CompressedBlockRegistry {
 		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max));
 	}
 
-	public static void init() {
+	public static void addComprecipes() {
 		for (CompressedInfos block : compressedBlocks) {
 			String name = block.compressedName;
 			String compressedName = "compressed" + name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -61,10 +61,10 @@ public class CompressedBlockRegistry {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', blockName));
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', compressedName + "1x"));
 			
-			if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
-				GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), 2));
+/*			if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
+				GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), 1600));
 			}
-			System.out.println(GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)));
+			System.out.println(GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta))); */
 			
 			if (block.maxCompression > 1)
 				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 1), "XXX", "XXX", "XXX", 'X', blockName));
@@ -79,6 +79,16 @@ public class CompressedBlockRegistry {
 			}
 		}
 	}
+	
+/*	public static void addComprecipesPostInit() {
+		for (CompressedInfos block : compressedBlocks) {
+			Block compressedBlock = block.compressedBlock;
+			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
+			if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
+				GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), 1600));
+			}
+		}
+	} */
 
 	public static class CompressedInfos {
 		public String compressedName;
@@ -98,7 +108,7 @@ public class CompressedBlockRegistry {
 		}
 	}
 
-	private static class CompressedBlockFuelHandler implements IFuelHandler {
+/*	private static class CompressedBlockFuelHandler implements IFuelHandler {
 		private final Item compressedBlock;
 		private final int burnTime;
 
@@ -109,7 +119,7 @@ public class CompressedBlockRegistry {
 
 		@Override
 		public int getBurnTime(final ItemStack fuel) {
-			return fuel != null && fuel.getItem() == compressedBlock ? burnTime * 9 ^ (fuel.getItemDamage() + 1) : 0;
+			return (int) (fuel != null && fuel.getItem() == compressedBlock ? burnTime * Math.pow(9, (fuel.getItemDamage() + 1)) : 0);
 		}
-	}
+	} */
 }
