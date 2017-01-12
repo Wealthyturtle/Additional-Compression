@@ -31,14 +31,16 @@ public class CompressedBlockRegistry {
 		if (!Loader.isModLoaded(modID) && !modID.equals("minecraft"))
 			return;
 
+		String shrunkName = name.replace("item", "").replace("block", "");
+
 		Block compressedBlock;
 		if (max == 1) {
-			compressedBlock = new BlockCompressedSimple(name.toLowerCase()).setBlockName("compressed." + name.toLowerCase());
-			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressedSimple.class, "compressed_" + name.toLowerCase());
+			compressedBlock = new BlockCompressedSimple(shrunkName.toLowerCase()).setBlockName("compressed." + shrunkName.toLowerCase());
+			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressedSimple.class, "compressed_" + shrunkName.toLowerCase());
 		}
 		else {
-			compressedBlock = new BlockCompressed(name.toLowerCase(), max).setBlockName("compressed." + name.toLowerCase());
-			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name.toLowerCase());	
+			compressedBlock = new BlockCompressed(shrunkName.toLowerCase(), max).setBlockName("compressed." + shrunkName.toLowerCase());
+			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + shrunkName.toLowerCase());	
 		}
 		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max));
 	}
@@ -50,45 +52,57 @@ public class CompressedBlockRegistry {
 			String blockName = "block" + name.substring(0, 1).toUpperCase() + name.substring(1);
 			Block compressedBlock = block.compressedBlock;
 			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
+			if (name.contains("block")) {
+				blockName = name;
+				compressedName = name.replace("block", "compressed");
+			}
 
-			OreDictionary.registerOre(blockName, new ItemStack(compressedBlock, 1, 0));
+			if (name.contains("item")) {
+				blockName = name.replace("item", "block");
+				compressedName = name.replace("item", "compressed");
+			}
+
+			if (!(OreDictionary.doesOreNameExist(blockName) || blockName == name))
+				OreDictionary.registerOre(blockName, new ItemStack(compressedBlock, 1, 0));
 
 			if (OreDictionary.doesOreNameExist(name))
 				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', name));
 			else
 				GameRegistry.addRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', new ItemStack(baseItem, 1, block.baseMeta));
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', blockName));
+			//GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', blockName));
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', compressedName + "1x"));
-			
-/*			if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
-				GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), 1600));
-			}
-			System.out.println(GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta))); */
-			
-			if (block.maxCompression > 1)
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 1), "XXX", "XXX", "XXX", 'X', blockName));
+
+			//if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
+			//GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), baseItem, block.baseMeta));
+			//}
+			//System.out.println(GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)));
+
+			//if (block.maxCompression > 1)
+			//GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 1), "XXX", "XXX", "XXX", 'X', blockName));
 
 			for (int i = 0; i < block.maxCompression; i++) {
 				OreDictionary.registerOre(compressedName + (i + 1) + "x", new ItemStack(compressedBlock, 1, i));
 
-				if (!(i >= block.maxCompression - 1)) {
+				if (i < block.maxCompression - 1) {
 					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, i + 1), "XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"));
 					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 9, i), "X", 'X', compressedName + (i + 2) + "x"));
 				}
 			}
 		}
 	}
-	
-/*	public static void addComprecipesPostInit() {
+
+	/*public static void addComprecipesPostInit() {
 		for (CompressedInfos block : compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
 			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
-			if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
-				GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), 1600));
+			Integer baseburn = GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta));
+			if (baseburn != 0) {
+				GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), baseItem, block.baseMeta));
 			}
+			System.out.println(baseburn);
 		}
-	} */
+	}*/
 
 	public static class CompressedInfos {
 		public String compressedName;
@@ -108,18 +122,26 @@ public class CompressedBlockRegistry {
 		}
 	}
 
-/*	private static class CompressedBlockFuelHandler implements IFuelHandler {
+	/*private static class CompressedBlockFuelHandler implements IFuelHandler {
 		private final Item compressedBlock;
-		private final int burnTime;
+		private final Item baseItem;
+		private final int baseMeta;
 
-		private CompressedBlockFuelHandler(@Nonnull final Item compressedBlock, final int burnTime) {
+		private CompressedBlockFuelHandler(final Item compressedBlock, final Item baseItem, final int baseMeta) {
 			this.compressedBlock = compressedBlock;
-			this.burnTime = burnTime;
+			this.baseItem = baseItem;
+			this.baseMeta = baseMeta;
 		}
 
 		@Override
 		public int getBurnTime(final ItemStack fuel) {
-			return (int) (fuel != null && fuel.getItem() == compressedBlock ? burnTime * Math.pow(9, (fuel.getItemDamage() + 1)) : 0);
+			//System.out.println("hoi");
+			if (fuel == null || fuel.getItem() != compressedBlock)
+				return 0;
+
+			int burnTime = (int) (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, baseMeta)) * Math.pow(10, (fuel.getItemDamage() + 1)));
+			System.out.println(burnTime);
+			return burnTime != Integer.MAX_VALUE ? burnTime : 0;
 		}
-	} */
+	}*/
 }

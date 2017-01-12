@@ -6,11 +6,11 @@ import java.util.List;
 
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry;
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.CompressedInfos;
+import com.wealthyturtle.additionalcompression.ConfigHandler;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import exnihilo.registries.HammerRegistry;
 import exnihilo.registries.SieveRegistry;
-import exnihilo.registries.helpers.SiftReward;
 import exnihilo.registries.helpers.SiftingResult;
 import exnihilo.registries.helpers.Smashable;
 import net.blay09.mods.excompressum.registry.AutoSieveSkinRegistry;
@@ -22,9 +22,11 @@ import net.minecraft.item.Item;
 
 public class ExCompressum {
 
-	public static void preInit() {
-
-	}
+	/*
+	 * public static void exComprecipespreInit() {
+	 * 
+	 * }
+	 */
 
 	public static void exComprecipes() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
@@ -32,10 +34,14 @@ public class ExCompressum {
 			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
 			ArrayList<Smashable> smashResults = HammerRegistry.getRewards(Block.getBlockFromItem(baseItem), block.baseMeta);
 
-			if (smashResults != null)
-			for (Smashable result : smashResults) {
-				for (int i = 0; i < 9; i++){
-					CompressedHammerRegistry.getSmashables().put(new ItemAndMetadata(compressedBlock, 0), new Smashable(compressedBlock, 0, result.item, result.meta, result.chance, result.luckMultiplier));
+			if (smashResults == null)
+				continue;
+
+			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxSifting); m++) {
+				for (Smashable result : smashResults) {
+					for (int i = 0; i < Math.pow(9, m + 1); i++) {
+						CompressedHammerRegistry.getSmashables().put(new ItemAndMetadata(compressedBlock, m), new Smashable(compressedBlock, m, result.item, result.meta, result.chance, result.luckMultiplier));
+					}
 				}
 			}
 		}
@@ -63,12 +69,16 @@ public class ExCompressum {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
 			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
-			ArrayList<SiftReward> siftResults = SieveRegistry.getRewards(Block.getBlockFromItem(baseItem), block.baseMeta);
+			ArrayList<SiftingResult> siftResults = SieveRegistry.getSiftingOutput(Block.getBlockFromItem(baseItem), block.baseMeta);
 
-			if (siftResults != null)
-			for (SiftReward result : siftResults) {
-				for (int i = 0; i < 6; i++){
-					HeavySieveRegistry.getSiftables().put(new ItemAndMetadata(compressedBlock, 0), new SiftingResult(result.item, result.meta, result.rarity));
+			if (siftResults == null)
+				continue;
+			
+			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxSifting); m++) {
+				for (SiftingResult result : siftResults) {
+					for (int i = 0; i < (Math.pow(6, m + 1)); i++) {
+						HeavySieveRegistry.getSiftables().put(new ItemAndMetadata(compressedBlock, m), new SiftingResult(result.item, result.meta, result.rarity));
+					}
 				}
 			}
 		}
