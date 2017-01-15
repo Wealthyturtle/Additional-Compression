@@ -8,6 +8,7 @@ import com.wealthyturtle.additionalcompression.CompressedBlockRegistry;
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.CompressedInfos;
 import com.wealthyturtle.additionalcompression.ConfigHandler;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import exnihilo.registries.HammerRegistry;
 import exnihilo.registries.SieveRegistry;
@@ -48,6 +49,11 @@ public class ExCompressum {
 	}
 
 	public static void exComprecipesPostInit() {
+		addSifting();
+
+		if (Loader.isModLoaded("MineTweaker3"))
+			new MineTweaker();
+
 		Object skinRegistry = new AutoSieveSkinRegistry();
 		try {
 			Field f = skinRegistry.getClass().getDeclaredField("availableSkins");
@@ -65,7 +71,9 @@ public class ExCompressum {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
+	}
 
+	public static void addSifting() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
 			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
