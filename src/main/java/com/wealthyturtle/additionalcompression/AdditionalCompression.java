@@ -8,8 +8,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.CompressedInfos;
-import com.wealthyturtle.additionalcompression.blocks.cobblestone.BlockCompressed;
-import com.wealthyturtle.additionalcompression.blocks.cobblestone.ItemBlockCompressed;
+import com.wealthyturtle.additionalcompression.blocks.BlockCompressed;
+import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressed;
 import com.wealthyturtle.additionalcompression.compat.ExCompressum;
 import com.wealthyturtle.additionalcompression.proxy.CommonProxy;
 
@@ -47,9 +47,12 @@ public class AdditionalCompression {
 
 		ConfigHandler.init(preEvent.getSuggestedConfigurationFile());
 
+		for (String entry : ConfigHandler.existingBlocksList) {
+			String[] entries = entry.split(":");
+			CompressedBlockRegistry.registerExistingBlock(entries[0], entries[1], entries[2], Integer.parseInt(entries[3]), Integer.parseInt(entries[4]));
+		}
 		for (String entry : ConfigHandler.compressedBlocksWhitelist) {
 			String[] entries = entry.split(":");
-
 			CompressedBlockRegistry.registerCompressableBlock(entries[0], entries[1], entries[2], Integer.parseInt(entries[3]), Integer.parseInt(entries[4]));
 		}
 	}
