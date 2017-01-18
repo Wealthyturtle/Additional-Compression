@@ -7,10 +7,14 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.wealthyturtle.additionalcompression.blocks.cobblestone.BlockCompressed;
-import com.wealthyturtle.additionalcompression.blocks.cobblestone.BlockCompressedSimple;
-import com.wealthyturtle.additionalcompression.blocks.cobblestone.ItemBlockCompressed;
-import com.wealthyturtle.additionalcompression.blocks.cobblestone.ItemBlockCompressedSimple;
+import org.apache.commons.lang3.StringUtils;
+
+import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.ExistingInfos;
+import com.wealthyturtle.additionalcompression.blocks.BlockCompressed;
+import com.wealthyturtle.additionalcompression.blocks.BlockCompressedComplicated;
+import com.wealthyturtle.additionalcompression.blocks.BlockCompressedSimple;
+import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressed;
+import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressedSimple;
 
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.Loader;
@@ -26,23 +30,59 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class CompressedBlockRegistry {
 
 	public static List<CompressedInfos> compressedBlocks = new ArrayList<CompressedInfos>();
+	public static Map<String, List<ExistingInfos>> existingBlocks = new HashMap<String, List<ExistingInfos>>();
+
+
+	public static void registerExistingBlock(String name, String modID, String itemID, int meta, int max) {
+		if (!Loader.isModLoaded(modID) && !modID.equals("minecraft"))
+			return;
+
+		if (existingBlocks.containsKey(name)) {
+			existingBlocks.get(name).add(new ExistingInfos(modID, itemID, meta, max));
+		} else {
+			List<ExistingInfos> arr = new ArrayList<>();
+			arr.add(new ExistingInfos(modID, itemID, meta, max));
+			existingBlocks.put(name, arr);
+		}
+	}
 
 	public static void registerCompressableBlock(String name, String modID, String itemID, int meta, int max) {
 		if (!Loader.isModLoaded(modID) && !modID.equals("minecraft"))
 			return;
 
-		String shrunkName = name.replace("item", "").replace("block", "");
-
 		Block compressedBlock;
-		if (max == 1) {
-			compressedBlock = new BlockCompressedSimple(shrunkName.toLowerCase()).setBlockName("compressed." + shrunkName.toLowerCase());
-			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressedSimple.class, "compressed_" + shrunkName.toLowerCase());
+		List<Integer> existingLevels = new ArrayList<Integer>();
+
+		if (existingBlocks.containsKey(name)) {
+			List<ExistingInfos> infoList = existingBlocks.get(name);
+
+			int dontBother = 0;
+			for (ExistingInfos info : infoList) {
+				existingLevels.add(info.compressionLevel);
+
+				for (int i = 0; i < max; i++) {
+					if (info.compressionLevel == i)
+						dontBother++;
+				}
+			}
+			if (dontBother > max)
+				return;
+
+			compressedBlock = new BlockCompressedComplicated(name.toLowerCase(), max, existingLevels).setBlockName("compressed." + name.toLowerCase());
+			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name.toLowerCase());	
+
+
+		} else {
+			if (max == 1) {
+				compressedBlock = new BlockCompressedSimple(name.toLowerCase()).setBlockName("compressed." + name.toLowerCase());
+				GameRegistry.registerBlock(compressedBlock, ItemBlockCompressedSimple.class, "compressed_" + name.toLowerCase());
+			}
+			else {
+				compressedBlock = new BlockCompressed(name.toLowerCase(), max).setBlockName("compressed." + name.toLowerCase());
+				GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name.toLowerCase());	
+			}
 		}
-		else {
-			compressedBlock = new BlockCompressed(shrunkName.toLowerCase(), max).setBlockName("compressed." + shrunkName.toLowerCase());
-			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + shrunkName.toLowerCase());	
-		}
-		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max));
+		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max, existingLevels));
 	}
 
 	public static void addComprecipes() {
@@ -52,17 +92,25 @@ public class CompressedBlockRegistry {
 			String blockName = "block" + name.substring(0, 1).toUpperCase() + name.substring(1);
 			Block compressedBlock = block.compressedBlock;
 			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
-			if (name.contains("block")) {
-				blockName = name;
-				compressedName = name.replace("block", "compressed");
+			Boolean itsComplicated = existingBlocks.containsKey(name);
+
+			String shrunkName = shrinkName(name);
+			if (shrunkName != name &&
+					(name.startsWith("block") ||
+							name.startsWith("item") ||
+							name.startsWith("ingot") ||
+							name.startsWith("gem") ||
+							name.startsWith("dust"))) {
+				compressedName = "compressed" + shrunkName;
+				blockName = "block" + shrunkName;
 			}
 
-			if (name.contains("item")) {
-				blockName = name.replace("item", "block");
-				compressedName = name.replace("item", "compressed");
+			if(itsComplicated) {
+				complicatedComprecipe(block, name, blockName, compressedName, compressedBlock, baseItem);
+				continue;
 			}
 
-			if (!(OreDictionary.doesOreNameExist(blockName) || blockName == name))
+			if (!OreDictionary.doesOreNameExist(blockName) && blockName != name)
 				OreDictionary.registerOre(blockName, new ItemStack(compressedBlock, 1, 0));
 
 			if (OreDictionary.doesOreNameExist(name))
@@ -92,6 +140,62 @@ public class CompressedBlockRegistry {
 		}
 	}
 
+	public static void complicatedComprecipe(CompressedInfos block, String name, String blockName, String compressedName, Block compressedBlock, Item baseItem) {
+		List<ExistingInfos> infoList = existingBlocks.get(name);
+
+		if (!block.existingLevels.contains(1)) {
+			if (!OreDictionary.doesOreNameExist(blockName) && blockName != name)
+				OreDictionary.registerOre(blockName, new ItemStack(compressedBlock, 1, 0));
+
+			if (OreDictionary.doesOreNameExist(name))
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', name));
+			else
+				GameRegistry.addRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', new ItemStack(baseItem, 1, block.baseMeta));
+
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', compressedName + "1x"));
+		}
+
+		for (int i = 0; i < block.maxCompression; i++) {
+			if (block.existingLevels.contains(i + 1)) {
+				if (block.existingLevels.contains(i + 2))
+					continue;
+
+				ExistingInfos existing = infoList.get(0);
+				for (ExistingInfos info : infoList){
+					if (info.compressionLevel == i + 1) {
+						existing = info;
+						break;
+					}
+				}
+				Item existingItem = GameRegistry.findItem(existing.modID, existing.itemID);
+
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(existingItem, 9, existing.itemMeta), "X", 'X', compressedName + (i + 2) + "x"));
+				if (i < block.maxCompression - 1) {
+					GameRegistry.addRecipe(new ItemStack(compressedBlock, 1, i + 1), "XXX", "XXX", "XXX", 'X', new ItemStack(existingItem, 1, existing.itemMeta));
+				}
+			} else {
+				OreDictionary.registerOre(compressedName + (i + 1) + "x", new ItemStack(compressedBlock, 1, i));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 9, i), "X", 'X', compressedName + (i + 2) + "x"));
+				if (i < block.maxCompression - 1) {
+					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, i + 1), "XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"));
+				}
+			}
+		}
+	}
+
+	public static String shrinkName(String fullName) {
+		String[] splitName = StringUtils.splitByCharacterTypeCamelCase(fullName);
+		if (splitName[0] != fullName && splitName.length > 1) {
+			String shrunkName = "";
+			for (int i = 1; i < splitName.length; i++) {
+				shrunkName = shrunkName + splitName[i];
+			}
+			if (shrunkName != "")
+				return shrunkName;
+		}
+		return fullName;
+	}
+
 	/*public static void addComprecipesPostInit() {
 		for (CompressedInfos block : compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
@@ -111,14 +215,30 @@ public class CompressedBlockRegistry {
 		public String itemID;
 		public int baseMeta;
 		public int maxCompression;
+		public List<Integer> existingLevels;
 
-		public CompressedInfos(String name, Block block, String mod, String item, int meta, int max) {
+		public CompressedInfos(String name, Block block, String mod, String item, int meta, int max, List<Integer> existing) {
 			compressedName = name;
 			compressedBlock = block;
 			modID = mod;
 			itemID = item;
 			baseMeta = meta;
 			maxCompression = max;
+			existingLevels = existing;
+		}
+	}
+
+	public static class ExistingInfos {
+		public String modID;
+		public String itemID;
+		public int itemMeta;
+		public int compressionLevel;
+
+		public ExistingInfos(String mod, String item, int meta, int level) {
+			modID = mod;
+			itemID = item;
+			itemMeta = meta;
+			compressionLevel = level;
 		}
 	}
 

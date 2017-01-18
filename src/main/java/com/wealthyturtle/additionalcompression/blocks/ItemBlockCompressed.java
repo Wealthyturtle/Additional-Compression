@@ -1,4 +1,4 @@
-package com.wealthyturtle.additionalcompression.blocks.cobblestone;
+package com.wealthyturtle.additionalcompression.blocks;
 
 import java.util.List;
 

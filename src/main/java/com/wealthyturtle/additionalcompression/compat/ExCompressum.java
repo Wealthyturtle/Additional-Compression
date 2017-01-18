@@ -23,12 +23,6 @@ import net.minecraft.item.Item;
 
 public class ExCompressum {
 
-	/*
-	 * public static void exComprecipespreInit() {
-	 * 
-	 * }
-	 */
-
 	public static void exComprecipes() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
@@ -39,6 +33,9 @@ public class ExCompressum {
 				continue;
 
 			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxSifting); m++) {
+				if (block.existingLevels.contains(m + 1))
+					continue;
+
 				for (Smashable result : smashResults) {
 					for (int i = 0; i < Math.pow(9, m + 1); i++) {
 						CompressedHammerRegistry.getSmashables().put(new ItemAndMetadata(compressedBlock, m), new Smashable(compressedBlock, m, result.item, result.meta, result.chance, result.luckMultiplier));
@@ -81,8 +78,11 @@ public class ExCompressum {
 
 			if (siftResults == null)
 				continue;
-			
+
 			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxSifting); m++) {
+				if (block.existingLevels.contains(m + 1))
+					continue;
+
 				for (SiftingResult result : siftResults) {
 					for (int i = 0; i < (Math.pow(6, m + 1)); i++) {
 						HeavySieveRegistry.getSiftables().put(new ItemAndMetadata(compressedBlock, m), new SiftingResult(result.item, result.meta, result.rarity));

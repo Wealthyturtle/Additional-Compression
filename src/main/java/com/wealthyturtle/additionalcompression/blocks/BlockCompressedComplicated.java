@@ -1,5 +1,6 @@
-package com.wealthyturtle.additionalcompression.blocks.cobblestone;
+package com.wealthyturtle.additionalcompression.blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.wealthyturtle.additionalcompression.AdditionalCompression;
@@ -15,56 +16,47 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCompressed extends Block {
+public class BlockCompressedComplicated extends BlockCompressed {
 
 	int maxCompression = 10;
 	Float miningSpeed = 3.0F;
 	String basicBlock;
+	List<Integer> existingLevels;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] blockIcons;
 
-	public BlockCompressed(String base, int max) {
-		super(Material.rock);
+	public BlockCompressedComplicated(String base, int max, List<Integer> existing) {
+		super(base, max);
 
 		basicBlock = base;
 		maxCompression = max;
-
-		setHardness(3.0F);
-		setStepSound(Block.soundTypeStone);
-		setCreativeTab(AdditionalCompression.creativeTabs);
+		existingLevels = existing;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
-		if (meta < 0 || meta >= maxCompression) {
+		if (meta < 0 || meta >= maxCompression || existingLevels.contains(meta + 1)) {
 			meta = 0;
 		}
 
 		return this.blockIcons[meta];
 	}
 
-	public int damageDropped(int meta) {
-		return meta;
-	}
-
-	public float getBlockHardness(World world, int x, int y, int z) {
-		return 3.0F * (world.getBlockMetadata(x, y, z) + 2);
-	}
-
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		for (int i = 0; i < maxCompression; i++) {
-			list.add(new ItemStack(item, 1, i));
+			if (!existingLevels.contains(i + 1))
+				list.add(new ItemStack(item, 1, i));
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir) {
 		this.blockIcons = new IIcon[maxCompression];
-
 		for (int x = 0; x < maxCompression; x++) {
-			blockIcons[x] = ir.registerIcon("additionalcompression:" + basicBlock + "_compressed_" + x);
+			if (!existingLevels.contains(x + 1))
+				blockIcons[x] = ir.registerIcon("additionalcompression:" + basicBlock + "_compressed_" + x);
 		}
 	}
 }

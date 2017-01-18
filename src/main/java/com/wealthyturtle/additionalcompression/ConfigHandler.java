@@ -10,6 +10,7 @@ public class ConfigHandler {
 
 	// Categories
 	public static String compressedBlocks = "Compressed Blocks";
+	public static String existingBlocks = "Existing Compressed Blocks";
 	public static String misc = "Misceleaneous";
 	public static String compatibility = "Mod Compatibility";
 
@@ -18,6 +19,44 @@ public class ConfigHandler {
 	public static Boolean exCompressum = true;
 	public static Integer maxSifting = 1;
 	public static Integer maxHammering = 1;
+	public static String[] existingBlocksList;
+	private static String[] existingBlocksListDefaults = {
+			"coal:minecraft:coal_block:0:1",
+			"ingotIron:minecraft:iron_block:0:1",
+			"ingotGold:minecraft:gold_block:0:1",
+			"gemLapis:minecraft:lapis_block:0:1",
+			"dustRedstone:minecraft:redstone_block:0:1",
+			"gemDiamond:minecraft:diamond_block:0:1",
+			"gemEmerald:minecraft:emerald_block:0:1",
+			"cropMelon:minecraft:melon_block:0:1",
+			"cropWheat:minecraft:hay_block:0:1",
+			//extra utils
+			"cobblestone:ExtraUtilities:cobblestone_compressed:0:1",
+			"cobblestone:ExtraUtilities:cobblestone_compressed:1:2",
+			"cobblestone:ExtraUtilities:cobblestone_compressed:2:3",
+			"cobblestone:ExtraUtilities:cobblestone_compressed:3:4",
+			"cobblestone:ExtraUtilities:cobblestone_compressed:4:5",
+			"cobblestone:ExtraUtilities:cobblestone_compressed:5:6",
+			"cobblestone:ExtraUtilities:cobblestone_compressed:6:7",
+			"cobblestone:ExtraUtilities:cobblestone_compressed:7:8",
+			"dirt:ExtraUtilities:cobblestone_compressed:8:1",
+			"dirt:ExtraUtilities:cobblestone_compressed:9:2",
+			"dirt:ExtraUtilities:cobblestone_compressed:10:3",
+			"dirt:ExtraUtilities:cobblestone_compressed:11:4",
+			"gravel:ExtraUtilities:cobblestone_compressed:12:1",
+			"gravel:ExtraUtilities:cobblestone_compressed:13:2",
+			"blockSand:ExtraUtilities:cobblestone_compressed:14:1",
+			"blockSand:ExtraUtilities:cobblestone_compressed:15:2",
+			//ex compressum
+			"dust:excompressum:compressed_dust:0:1",
+			"cobblestone:excompressum:compressed_dust:1:1",
+			"gravel:excompressum:compressed_dust:2:1",
+			"blockSand:excompressum:compressed_dust:3:1",
+			"dirt:excompressum:compressed_dust:4:1",
+			"flint:excompressum:compressed_dust:5:1",
+			"stone:excompressum:compressed_dust:6:1",
+			"netherrack:excompressum:compressed_dust:7:1"
+	};
 	public static String[] compressedBlocksWhitelist;
 	private static String[] compressedBlocksWhitelistDefaults = {
 			//vanilla
@@ -58,6 +97,7 @@ public class ConfigHandler {
 			"itemNetherStar:minecraft:nether_star:0:1",
 			"cookie:minecraft:cookie:0:1",
 			"bread:minecraft:bread:0:1",
+			"bottleWater:minecraft:potion:0:1",
 			//ex nihilo
 			"dust:exnihilo:dust:0:10",
 			"gravelNether:exnihilo:exnihilo.gravel_nether:0:10",
@@ -79,6 +119,16 @@ public class ConfigHandler {
 						+ "\nItemID: The id of the item/block you want to compress."
 						+ "\nItemMetadata: The metadata value of the item/block you want to compress, most of the time this is 0."
 						+ "\nMaxCompressionLevel: The maximum level you want the item/block to be compressed to, setting this below 1 will probably mess things up.");
+
+		config.setCategoryComment(existingBlocks, "This is where you can tell the mod what compressed blocks have already been registered by other mods to prevent duplicates and conflicting recipes.");
+
+		existingBlocksList = config.getStringList("existingBlockList", existingBlocks, existingBlocksListDefaults,
+				"The syntax is: CompressedBlockName:ModID:ItemID:ItemMetadata:CompressionLevel"
+						+ "\nCompressedBlockName: The material of the compressed block."
+						+ "\nModID: The mod id of the compressed block."
+						+ "\nItemID: The id of the compressed block."
+						+ "\nItemMetadata: The metadata value of the compressed block."
+						+ "\nCompressionLevel: The level of compression of the compressed block.");
 
 		config.setCategoryComment(misc, "Some options that don't really fit into any other category.");
 
