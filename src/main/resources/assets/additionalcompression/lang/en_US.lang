@@ -1,7 +1,7 @@
 //en_US Localization File - Additional Compression
-//Creator of Localization File: RCXCrafter, Wealthyturtle
+//Creator of Localization File: RCXcrafter, Wealthyturtle
 
-//Contact RCXCrafter / Wealthyturtle If You Would Like to Volunteer to Create a Localization File for Another Language.
+//Contact RCXcrafter / Wealthyturtle If You Would Like to Volunteer to Create a Localization File for Another Language.
 
 //Creative Tab
 itemGroup.additionalcompression=Adidional Compression
@@ -44,7 +44,14 @@ tile.compressed.endstone.name=%s End Stone
 tile.compressed.rodblaze.name=%s Blaze
 tile.compressed.bone.name=%s Bones
 tile.compressed.bread.name=%s Bread
+tile.compressed.coal.name=%s Coal
 tile.compressed.charcoal.name=%s Charcoal
+tile.compressed.ingotiron.name=%s Iron
+tile.compressed.ingotgold.name=%s Gold
+tile.compressed.gemlapis.name=%s Lapis Lazuli
+tile.compressed.dustredstone.name=%s Redstone
+tile.compressed.gemdiamond.name=%s Diamond
+tile.compressed.gememerald.name=%s Emerald
 tile.compressed.cookie.name=%s Cookies
 tile.compressed.cropapple.name=%s Apples
 tile.compressed.cropcarrot.name=%s Carrots
@@ -53,6 +60,7 @@ tile.compressed.cropnetherwart.name=%s Nether Wart
 tile.compressed.croppotato.name=%s Potatoes
 tile.compressed.cropsugarcane.name=%s Sugar Cane
 tile.compressed.cropwheat.name=%s Wheat
+tile.compressed.logwood.name=%s Wood
 tile.compressed.dustgunpowder.name=%s Gunpowder
 tile.compressed.dustsugar.name=%s Sugar
 tile.compressed.egg.name=%s Eggs
@@ -68,6 +76,7 @@ tile.compressed.pearlender.name=%s Ender Pearl
 tile.compressed.spidereye.name=%s Spider Eyes
 tile.compressed.string.name=%s String
 tile.compressed.bottlewater.name=%s Water Bottles
+tile.compressed.bucketlava.name=%s Lava Buckets
 
 //Compressed Block Types (Ex Nihilo)
 tile.compressed.dust.name=%s Dust

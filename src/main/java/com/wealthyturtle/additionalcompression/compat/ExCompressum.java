@@ -24,28 +24,7 @@ import net.minecraft.item.Item;
 public class ExCompressum {
 
 	public static void exComprecipes() {
-		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
-			Block compressedBlock = block.compressedBlock;
-			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
-			ArrayList<Smashable> smashResults = HammerRegistry.getRewards(Block.getBlockFromItem(baseItem), block.baseMeta);
-
-			if (smashResults == null)
-				continue;
-
-			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxSifting); m++) {
-				if (block.existingLevels.contains(m + 1))
-					continue;
-
-				for (Smashable result : smashResults) {
-					for (int i = 0; i < Math.pow(9, m + 1); i++) {
-						CompressedHammerRegistry.getSmashables().put(new ItemAndMetadata(compressedBlock, m), new Smashable(compressedBlock, m, result.item, result.meta, result.chance, result.luckMultiplier));
-					}
-				}
-			}
-		}
-	}
-
-	public static void exComprecipesPostInit() {
+		addHammering();
 		addSifting();
 
 		if (Loader.isModLoaded("MineTweaker3"))
@@ -86,6 +65,28 @@ public class ExCompressum {
 				for (SiftingResult result : siftResults) {
 					for (int i = 0; i < (Math.pow(6, m + 1)); i++) {
 						HeavySieveRegistry.getSiftables().put(new ItemAndMetadata(compressedBlock, m), new SiftingResult(result.item, result.meta, result.rarity));
+					}
+				}
+			}
+		}
+	}
+
+	public static void addHammering() {
+		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
+			Block compressedBlock = block.compressedBlock;
+			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
+			ArrayList<Smashable> smashResults = HammerRegistry.getRewards(Block.getBlockFromItem(baseItem), block.baseMeta);
+
+			if (smashResults == null)
+				continue;
+
+			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxHammering); m++) {
+				if (block.existingLevels.contains(m + 1))
+					continue;
+
+				for (Smashable result : smashResults) {
+					for (int i = 0; i < Math.pow(9, m + 1); i++) {
+						CompressedHammerRegistry.getSmashables().put(new ItemAndMetadata(compressedBlock, m), new Smashable(compressedBlock, m, result.item, result.meta, result.chance, result.luckMultiplier));
 					}
 				}
 			}

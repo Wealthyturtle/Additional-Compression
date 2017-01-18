@@ -5,23 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.apache.commons.lang3.StringUtils;
 
-import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.ExistingInfos;
 import com.wealthyturtle.additionalcompression.blocks.BlockCompressed;
 import com.wealthyturtle.additionalcompression.blocks.BlockCompressedComplicated;
 import com.wealthyturtle.additionalcompression.blocks.BlockCompressedSimple;
 import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressed;
 import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressedSimple;
 
-import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
