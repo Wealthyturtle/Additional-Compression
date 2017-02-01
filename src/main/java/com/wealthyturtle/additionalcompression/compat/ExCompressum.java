@@ -52,8 +52,8 @@ public class ExCompressum {
 	public static void addSifting() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
-			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
-			ArrayList<SiftingResult> siftResults = SieveRegistry.getSiftingOutput(Block.getBlockFromItem(baseItem), block.baseMeta);
+			Block baseBlock = GameRegistry.findBlock(block.modID, block.itemID);
+			ArrayList<SiftingResult> siftResults = SieveRegistry.getSiftingOutput(baseBlock, block.baseMeta);
 
 			if (siftResults == null)
 				continue;
@@ -74,8 +74,8 @@ public class ExCompressum {
 	public static void addHammering() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
-			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
-			ArrayList<Smashable> smashResults = HammerRegistry.getRewards(Block.getBlockFromItem(baseItem), block.baseMeta);
+			Block baseBlock = GameRegistry.findBlock(block.modID, block.itemID);
+			ArrayList<Smashable> smashResults = HammerRegistry.getRewards(baseBlock, block.baseMeta);
 
 			if (smashResults == null)
 				continue;

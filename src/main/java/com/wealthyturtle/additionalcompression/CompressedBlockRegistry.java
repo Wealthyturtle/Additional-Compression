@@ -99,6 +99,9 @@ public class CompressedBlockRegistry {
 				blockName = "block" + shrunkName;
 			}
 
+			//if (baseItem.hasContainerItem(new ItemStack(baseItem, 1, block.baseMeta)));
+				//baseItem = baseItem.setContainerItem(null);
+
 			if(itsComplicated) {
 				complicatedComprecipe(block, name, blockName, compressedName, compressedBlock, baseItem);
 				continue;
