@@ -13,11 +13,14 @@ import com.wealthyturtle.additionalcompression.blocks.BlockCompressedSimple;
 import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressed;
 import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressedSimple;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -45,6 +48,7 @@ public class CompressedBlockRegistry {
 			return;
 
 		Block compressedBlock;
+		Item compressedItem;
 		List<Integer> existingLevels = new ArrayList<Integer>();
 
 		if (existingBlocks.containsKey(name)) {
@@ -62,19 +66,29 @@ public class CompressedBlockRegistry {
 			if (dontBother > max)
 				return;
 
-			compressedBlock = new BlockCompressedComplicated(name.toLowerCase(), max, existingLevels).setBlockName("compressed." + name.toLowerCase());
-			GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name.toLowerCase());	
+			compressedBlock = new BlockCompressedComplicated(name.toLowerCase(), max, existingLevels);
+			compressedItem = new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
+			GameRegistry.register(compressedBlock);
+			GameRegistry.register(compressedItem);
 
 
 		} else {
 			if (max == 1) {
-				compressedBlock = new BlockCompressedSimple(name.toLowerCase()).setBlockName("compressed." + name.toLowerCase());
-				GameRegistry.registerBlock(compressedBlock, ItemBlockCompressedSimple.class, "compressed_" + name.toLowerCase());
+				compressedBlock = new BlockCompressedSimple(name.toLowerCase());
+				compressedItem = new ItemBlockCompressedSimple(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
+				GameRegistry.register(compressedBlock);
+				GameRegistry.register(compressedItem);
 			}
 			else {
-				compressedBlock = new BlockCompressed(name.toLowerCase(), max).setBlockName("compressed." + name.toLowerCase());
-				GameRegistry.registerBlock(compressedBlock, ItemBlockCompressed.class, "compressed_" + name.toLowerCase());	
+				compressedBlock = new BlockCompressed(name.toLowerCase(), max);
+				compressedItem = new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
+				GameRegistry.register(compressedBlock);
+				GameRegistry.register(compressedItem);
 			}
+		}
+		for (int i = 0; i < max; i++) {
+			ModelLoader.registerItemVariants(compressedItem, new ResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed"));
+			ModelLoader.setCustomModelResourceLocation(compressedItem, i, new ModelResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed", "inventory"));
 		}
 		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max, existingLevels));
 	}
@@ -85,7 +99,7 @@ public class CompressedBlockRegistry {
 			String compressedName = "compressed" + name.substring(0, 1).toUpperCase() + name.substring(1);
 			String blockName = "block" + name.substring(0, 1).toUpperCase() + name.substring(1);
 			Block compressedBlock = block.compressedBlock;
-			Item baseItem = GameRegistry.findItem(block.modID, block.itemID);
+			Item baseItem = Item.REGISTRY.getObject(new ResourceLocation(block.modID, block.itemID));
 			Boolean itsComplicated = existingBlocks.containsKey(name);
 
 			String shrunkName = shrinkName(name);
@@ -100,7 +114,7 @@ public class CompressedBlockRegistry {
 			}
 
 			//if (baseItem.hasContainerItem(new ItemStack(baseItem, 1, block.baseMeta)));
-				//baseItem = baseItem.setContainerItem(null);
+			//baseItem = baseItem.setContainerItem(null);
 
 			if(itsComplicated) {
 				complicatedComprecipe(block, name, blockName, compressedName, compressedBlock, baseItem);
@@ -164,7 +178,7 @@ public class CompressedBlockRegistry {
 						break;
 					}
 				}
-				Item existingItem = GameRegistry.findItem(existing.modID, existing.itemID);
+				Item existingItem = Item.REGISTRY.getObject(new ResourceLocation(existing.modID, existing.itemID));
 
 				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(existingItem, 9, existing.itemMeta), "X", 'X', compressedName + (i + 2) + "x"));
 				if (i < block.maxCompression - 1) {

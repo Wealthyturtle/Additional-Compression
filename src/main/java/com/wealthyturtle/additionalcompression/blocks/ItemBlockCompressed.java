@@ -1,17 +1,26 @@
 package com.wealthyturtle.additionalcompression.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlockWithMetadata;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import com.google.common.base.Function;
 
-public class ItemBlockCompressed extends ItemBlockWithMetadata {
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.translation.I18n;
+
+public class ItemBlockCompressed extends ItemBlock {
 
 	public ItemBlockCompressed(Block block) {
-		super(block, block);
+		super(block);
+		setMaxDamage(0);
+		setHasSubtypes(true);
+	}
+
+	public int getMetadata(int damage)
+	{
+		return damage;
 	}
 
 	public String getItemStackDisplayName(ItemStack item) {
-		return String.format(super.getItemStackDisplayName(item), StatCollector.translateToLocal("compression.level." + (item.getItemDamage() + 1) + ".name"));
+		return String.format(super.getItemStackDisplayName(item), I18n.translateToLocal("compression.level." + (item.getItemDamage() + 1) + ".name"));
 	}
 }

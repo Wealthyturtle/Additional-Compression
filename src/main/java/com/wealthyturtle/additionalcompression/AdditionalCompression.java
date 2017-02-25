@@ -2,17 +2,16 @@ package com.wealthyturtle.additionalcompression;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.wealthyturtle.additionalcompression.compat.ExCompressum;
-
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+//import com.wealthyturtle.additionalcompression.compat.ExCompressum;
 
 @Mod(modid = AdditionalCompression.MODID, version = AdditionalCompression.VERSION, dependencies = "after:excompressum;after:exnihilo")
 
@@ -30,8 +29,9 @@ public class AdditionalCompression {
 			return Item.getItemFromBlock(CompressedBlockRegistry.compressedBlocks.get(0).compressedBlock);
 		}
 
+		@SideOnly(Side.CLIENT)
 		@Override
-		public int func_151243_f() {
+		public int getIconItemDamage() {
 			int firstMeta = 0;
 			for (int i = 0; i < CompressedBlockRegistry.compressedBlocks.get(0).maxCompression; i++) {
 				if (!CompressedBlockRegistry.compressedBlocks.get(0).existingLevels.contains(i + 1)) {
@@ -69,7 +69,7 @@ public class AdditionalCompression {
 	public void postInit(FMLPostInitializationEvent postEvent) {
 		//proxy.postInit(postEvent);
 		//CompressedBlockRegistry.addComprecipesPostInit();
-		if (Loader.isModLoaded("excompressum") && ConfigHandler.exCompressum)
-			ExCompressum.exComprecipes();
+		//if (Loader.isModLoaded("excompressum") && ConfigHandler.exCompressum)
+			//ExCompressum.exComprecipes();
 	}
 }

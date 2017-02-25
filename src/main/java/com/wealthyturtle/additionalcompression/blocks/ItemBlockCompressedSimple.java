@@ -3,7 +3,7 @@ package com.wealthyturtle.additionalcompression.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 public class ItemBlockCompressedSimple extends ItemBlock {
 
@@ -12,6 +12,6 @@ public class ItemBlockCompressedSimple extends ItemBlock {
 	}
 
 	public String getItemStackDisplayName(ItemStack item) {
-		return String.format(super.getItemStackDisplayName(item), StatCollector.translateToLocal("compression.level.0.name"));
+		return String.format(super.getItemStackDisplayName(item), I18n.translateToLocal("compression.level.0.name"));
 	}
 }

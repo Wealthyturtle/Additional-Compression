@@ -1,9 +1,8 @@
 package com.wealthyturtle.additionalcompression.client.gui;
 
-import cpw.mods.fml.client.config.GuiConfig;
-import cpw.mods.fml.client.config.IConfigElement;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.ConfigElement;
+import net.minecraftforge.fml.client.config.GuiConfig;
+import net.minecraftforge.fml.client.config.IConfigElement;
 import net.minecraft.client.gui.GuiScreen;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import com.wealthyturtle.additionalcompression.ConfigHandler;
 public class ConfigGui extends GuiConfig {
 
 	public ConfigGui(GuiScreen parentScreen) {
-		super(parentScreen, getConfigElements(parentScreen), AdditionalCompression.MODID, false, false, StatCollector.translateToLocal("gui." + AdditionalCompression.MODID + ".config.title"));
+		super(parentScreen, getConfigElements(parentScreen), AdditionalCompression.MODID, false, false, "gui." + AdditionalCompression.MODID + ".config.title");
 	}
 
 	@SuppressWarnings("rawtypes")

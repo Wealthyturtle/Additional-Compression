@@ -1,14 +1,22 @@
-.gradle/
-build/
-out/
-run/
-server/
-eclipse/
-src/META-INF/
-/*.iws
-/*.ipr
-/*.iml
-bin/
+# eclipse
+bin
+*.launch
+.settings
+.metadata
 .classpath
 .project
-.settings/
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run

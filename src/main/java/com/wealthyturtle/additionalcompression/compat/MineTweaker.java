@@ -2,7 +2,7 @@ package com.wealthyturtle.additionalcompression.compat;
 
 import minetweaker.MineTweakerImplementationAPI;
 import minetweaker.util.IEventHandler;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 
 @Optional.Interface(modid = "MineTweaker3", iface = "minetweaker.util.IEventHandler", striprefs = true)
 public class MineTweaker implements IEventHandler<MineTweakerImplementationAPI.ReloadEvent> {
@@ -13,6 +13,6 @@ public class MineTweaker implements IEventHandler<MineTweakerImplementationAPI.R
 
 	@Override
 	public void handle(MineTweakerImplementationAPI.ReloadEvent reloadEvent) {
-		ExCompressum.addSifting();
+		//ExCompressum.addSifting();
 	}
 }

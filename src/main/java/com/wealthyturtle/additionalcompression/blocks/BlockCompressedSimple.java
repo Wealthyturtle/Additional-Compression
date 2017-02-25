@@ -2,42 +2,45 @@ package com.wealthyturtle.additionalcompression.blocks;
 
 import com.wealthyturtle.additionalcompression.AdditionalCompression;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockCompressedSimple extends Block {
 
 	String basicBlock;
 
-	@SideOnly(Side.CLIENT)
-	private IIcon blockIcon;
-
 	public BlockCompressedSimple(String base) {
-		super(Material.rock);
+		super(Material.ROCK);
 
 		basicBlock = base;
 
-		setHardness(3.0F);
-		setStepSound(Block.soundTypeStone);
+		setHardness(6.0F);
 		setCreativeTab(AdditionalCompression.creativeTabs);
+		setUnlocalizedName("compressed." + base.toLowerCase());
+		setRegistryName(base.toLowerCase() + "_compressed");
+		setDefaultState(blockState.getBaseState().withProperty(BlockCompressed.levelsArray[0], 0));
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		return this.blockIcon;
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return 0;
 	}
 
-	public float getBlockHardness(World world, int x, int y, int z) {
-		return 6.0F;
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess idkWhatThisIs, BlockPos pos) {
+		return getDefaultState();
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister ir) {
-		this.blockIcon = ir.registerIcon("additionalcompression:" + basicBlock + "_compressed_0");
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[]{BlockCompressed.levelsArray[0]});
 	}
 }

@@ -1,5 +1,5 @@
 package com.wealthyturtle.additionalcompression.compat;
-
+/*
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +8,16 @@ import com.wealthyturtle.additionalcompression.CompressedBlockRegistry;
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.CompressedInfos;
 import com.wealthyturtle.additionalcompression.ConfigHandler;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
-import exnihilo.registries.HammerRegistry;
-import exnihilo.registries.SieveRegistry;
-import exnihilo.registries.helpers.SiftingResult;
-import exnihilo.registries.helpers.Smashable;
+import exnihiloomnia.registries.hammering.HammerRegistry;
+import exnihiloomnia.registries.sifting.SieveRegistry;
+import exnihiloomnia.registries.sifting.SieveRegistryEntry;
 import net.blay09.mods.excompressum.registry.AutoSieveSkinRegistry;
-import net.blay09.mods.excompressum.registry.CompressedHammerRegistry;
-import net.blay09.mods.excompressum.registry.HeavySieveRegistry;
-import net.blay09.mods.excompressum.registry.data.ItemAndMetadata;
+import net.blay09.mods.excompressum.registry.compressedhammer.CompressedHammerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ExCompressum {
 
@@ -52,8 +50,8 @@ public class ExCompressum {
 	public static void addSifting() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
-			Block baseBlock = GameRegistry.findBlock(block.modID, block.itemID);
-			ArrayList<SiftingResult> siftResults = SieveRegistry.getSiftingOutput(baseBlock, block.baseMeta);
+			Block baseBlock = Block.REGISTRY.getObject(new ResourceLocation(block.modID, block.itemID));
+			ArrayList<SieveRegistryEntry> siftResults = SieveRegistry.getEntryForBlockState(state, behavior).getSiftingOutput(baseBlock, block.baseMeta);
 
 			if (siftResults == null)
 				continue;
@@ -62,7 +60,7 @@ public class ExCompressum {
 				if (block.existingLevels.contains(m + 1))
 					continue;
 
-				for (SiftingResult result : siftResults) {
+				for (SieveRegistryEntry result : siftResults) {
 					for (int i = 0; i < (Math.pow(6, m + 1)); i++) {
 						HeavySieveRegistry.getSiftables().put(new ItemAndMetadata(compressedBlock, m), new SiftingResult(result.item, result.meta, result.rarity));
 					}
@@ -74,7 +72,7 @@ public class ExCompressum {
 	public static void addHammering() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
 			Block compressedBlock = block.compressedBlock;
-			Block baseBlock = GameRegistry.findBlock(block.modID, block.itemID);
+			Block baseBlock = Block.REGISTRY.getObject(new ResourceLocation(block.modID, block.itemID));
 			ArrayList<Smashable> smashResults = HammerRegistry.getRewards(baseBlock, block.baseMeta);
 
 			if (smashResults == null)
@@ -92,4 +90,4 @@ public class ExCompressum {
 			}
 		}
 	}
-}
+}*/
