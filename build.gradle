@@ -15,14 +15,14 @@ version = "1.10.2-3.0"
 group= "com.wealthyturtle.additionalcompression" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Additional-Compression"
 
-sourceCompatibility = targetCompatibility = "1.6" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = "1.7" // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.6"
+    sourceCompatibility = targetCompatibility = "1.7"
 }
 
 minecraft {
-    version = "1.10.2-12.18.3.2185"
-    runDir = "run"
+    version = "1.10.2-12.18.3.2239"
+    runDir = "eclipse"
     
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.

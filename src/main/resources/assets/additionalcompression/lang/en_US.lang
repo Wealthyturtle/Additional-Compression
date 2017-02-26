@@ -80,5 +80,5 @@ tile.compressed.bucketlava.name=%s Lava Buckets
 
 //Compressed Block Types (Ex Nihilo)
 tile.compressed.dust.name=%s Dust
-tile.compressed.gravelnether.name=%s Crushed Netherrack
-tile.compressed.gravelend.name=%s Crushed End Stone
+tile.compressed.gravelnether.name=%s Nether Gravel
+tile.compressed.gravelend.name=%s Ender Gravel
