@@ -17,8 +17,8 @@ public class ConfigHandler {
 	// Options
 	//public static Boolean extraUtils = true;
 	public static Boolean exCompressum = true;
-	public static Integer maxSifting = 1;
-	public static Integer maxHammering = 1;
+	public static Integer maxSifting = 3;
+	public static Integer maxHammering = 3;
 	public static String[] existingBlocksList;
 	private static String[] existingBlocksListDefaults = {
 			"coal:minecraft:coal_block:0:1",
@@ -137,7 +137,7 @@ public class ConfigHandler {
 						+ "\nModID: The mod id of the item/block you want to compress."
 						+ "\nItemID: The id of the item/block you want to compress."
 						+ "\nItemMetadata: The metadata value of the item/block you want to compress, most of the time this is 0."
-						+ "\nMaxCompressionLevel: The maximum level you want the item/block to be compressed to, setting this below 1 will probably mess things up.");
+						+ "\nMaxCompressionLevel: The maximum level you want the item/block to be compressed to, setting this below 1 will probably mess things up. Max 20.");
 
 		config.setCategoryComment(existingBlocks, "This is where you can tell the mod what compressed blocks have already been registered by other mods to prevent duplicates and conflicting recipes.");
 
@@ -151,12 +151,11 @@ public class ConfigHandler {
 
 		config.setCategoryComment(misc, "Some options that don't really fit into any other category.");
 
-		maxSifting = config.getInt("maxSifting", misc, maxSifting, 0, 10, "Up to what level the compressed blocks can be sifted."
-				+ "\nIf you set this too high, the mod will take very long to load."
-				+ "\nSetting this above 3 is probably a bad idea.");
-		maxHammering = config.getInt("maxHammering", misc, maxHammering, 0, 10, "Up to what level the compressed blocks can be hammered."
-				+ "\nIf you set this too high, the mod will take very long to load."
-				+ "\nSetting this above 3 is probably a bad idea.");
+		maxSifting = config.getInt("maxSifting", misc, maxSifting, 0, 20, "Up to what level the compressed blocks can be sifted."
+				+ "\nIf you set this too high, the mod will use up lots of memory, set it lower if you get a crash saying java heap space."
+				+ "\nSetting this above 5 or so is probably a bad idea.");
+		maxHammering = config.getInt("maxHammering", misc, maxHammering, 0, 20, "Up to what level the compressed blocks can be hammered."
+				+ "\nSetting this too high used to make the mod really slow, but no longer!");
 
 		config.setCategoryComment(compatibility, "This is where you can disable mod compatibility with specific mods, compatibility will never be loaded if the required mod isn't installed.");
 

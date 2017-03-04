@@ -13,6 +13,6 @@ public class MineTweaker implements IEventHandler<MineTweakerImplementationAPI.R
 
 	@Override
 	public void handle(MineTweakerImplementationAPI.ReloadEvent reloadEvent) {
-		//ExCompressum.addSifting();
+		ExCompressum.addSifting();
 	}
 }

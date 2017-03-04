@@ -1,7 +1,6 @@
 package com.wealthyturtle.additionalcompression.compat;
-/*
+
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry;
@@ -9,15 +8,22 @@ import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.Compresse
 import com.wealthyturtle.additionalcompression.ConfigHandler;
 
 import exnihiloomnia.registries.hammering.HammerRegistry;
+import exnihiloomnia.registries.hammering.HammerRegistryEntry;
+import exnihiloomnia.registries.hammering.HammerReward;
 import exnihiloomnia.registries.sifting.SieveRegistry;
-import exnihiloomnia.registries.sifting.SieveRegistryEntry;
+import exnihiloomnia.util.enums.EnumMetadataBehavior;
 import net.blay09.mods.excompressum.registry.AutoSieveSkinRegistry;
+import net.blay09.mods.excompressum.registry.ExRegistro;
 import net.blay09.mods.excompressum.registry.compressedhammer.CompressedHammerRegistry;
+import net.blay09.mods.excompressum.registry.compressedhammer.CompressedHammerRegistryEntry;
+import net.blay09.mods.excompressum.registry.compressedhammer.CompressedHammerReward;
+import net.blay09.mods.excompressum.registry.heavysieve.HeavySieveRegistry;
+import net.blay09.mods.excompressum.registry.heavysieve.HeavySieveRegistryEntry;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ExCompressum {
 
@@ -25,8 +31,8 @@ public class ExCompressum {
 		addHammering();
 		addSifting();
 
-		if (Loader.isModLoaded("MineTweaker3"))
-			new MineTweaker();
+		//if (Loader.isModLoaded("MineTweaker3"))
+			//new MineTweaker();
 
 		Object skinRegistry = new AutoSieveSkinRegistry();
 		try {
@@ -48,46 +54,59 @@ public class ExCompressum {
 	}
 
 	public static void addSifting() {
-		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
-			Block compressedBlock = block.compressedBlock;
-			Block baseBlock = Block.REGISTRY.getObject(new ResourceLocation(block.modID, block.itemID));
-			ArrayList<SieveRegistryEntry> siftResults = SieveRegistry.getEntryForBlockState(state, behavior).getSiftingOutput(baseBlock, block.baseMeta);
+		int siftingLoss = 2;
+		Object heavySiftingReg = HeavySieveRegistry.INSTANCE;
+		try {
+			Field f = heavySiftingReg.getClass().getDeclaredField("defaultLoss");
+			f.setAccessible(true);
+			try {
+				siftingLoss = (int) f.get(heavySiftingReg);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
 
-			if (siftResults == null)
+		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
+			Block baseBlock = Block.REGISTRY.getObject(new ResourceLocation(block.modID, block.itemID));
+
+			if (SieveRegistry.getEntryForBlockState(baseBlock.getStateFromMeta(block.baseMeta), EnumMetadataBehavior.IGNORED) == null)
 				continue;
 
 			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxSifting); m++) {
 				if (block.existingLevels.contains(m + 1))
 					continue;
 
-				for (SieveRegistryEntry result : siftResults) {
-					for (int i = 0; i < (Math.pow(6, m + 1)); i++) {
-						HeavySieveRegistry.getSiftables().put(new ItemAndMetadata(compressedBlock, m), new SiftingResult(result.item, result.meta, result.rarity));
-					}
-				}
+				HeavySieveRegistryEntry siftEntry = new HeavySieveRegistryEntry(block.compressedBlock.getStateFromMeta(m), false);
+				siftEntry.addRewards(ExRegistro.generateHeavyRewards(new ItemStack(baseBlock, block.baseMeta), (int) Math.pow(9 - siftingLoss, m + 1)));
+				HeavySieveRegistry.INSTANCE.add(siftEntry);
 			}
 		}
 	}
 
 	public static void addHammering() {
 		for (CompressedInfos block : CompressedBlockRegistry.compressedBlocks) {
-			Block compressedBlock = block.compressedBlock;
 			Block baseBlock = Block.REGISTRY.getObject(new ResourceLocation(block.modID, block.itemID));
-			ArrayList<Smashable> smashResults = HammerRegistry.getRewards(baseBlock, block.baseMeta);
+			HammerRegistryEntry rewards = HammerRegistry.getEntryForBlockState(baseBlock.getStateFromMeta(block.baseMeta));
 
-			if (smashResults == null)
+			if (rewards == null)
 				continue;
 
 			for (int m = 0; m < Math.min(block.maxCompression, ConfigHandler.maxHammering); m++) {
 				if (block.existingLevels.contains(m + 1))
 					continue;
 
-				for (Smashable result : smashResults) {
-					for (int i = 0; i < Math.pow(9, m + 1); i++) {
-						CompressedHammerRegistry.getSmashables().put(new ItemAndMetadata(compressedBlock, m), new Smashable(compressedBlock, m, result.item, result.meta, result.chance, result.luckMultiplier));
-					}
+				CompressedHammerRegistryEntry hammerEntry = new CompressedHammerRegistryEntry(block.compressedBlock.getStateFromMeta(m), false);
+				for (HammerReward reward : rewards.getRewards()) {
+					hammerEntry.addReward(new CompressedHammerReward(new ItemStack(reward.getItem().getItem(), (int) Math.pow(9, m + 1)), reward.getBaseChance() / 100, reward.getFortuneModifier()));
 				}
+				CompressedHammerRegistry.INSTANCE.add(hammerEntry);
 			}
 		}
 	}
-}*/
+}

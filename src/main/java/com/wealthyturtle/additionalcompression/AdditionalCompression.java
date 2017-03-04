@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-//import com.wealthyturtle.additionalcompression.compat.ExCompressum;
+import com.wealthyturtle.additionalcompression.compat.ExCompressum;
 
-@Mod(modid = AdditionalCompression.MODID, version = AdditionalCompression.VERSION, dependencies = "after:excompressum;after:exnihilo")
+@Mod(modid = AdditionalCompression.MODID, version = AdditionalCompression.VERSION, dependencies = "after:excompressum;after:exnihiloomnia")
 
 public class AdditionalCompression {
 
@@ -69,7 +69,7 @@ public class AdditionalCompression {
 	public void postInit(FMLPostInitializationEvent postEvent) {
 		//proxy.postInit(postEvent);
 		//CompressedBlockRegistry.addComprecipesPostInit();
-		//if (Loader.isModLoaded("excompressum") && ConfigHandler.exCompressum)
-			//ExCompressum.exComprecipes();
+		if (Loader.isModLoaded("excompressum") && ConfigHandler.exCompressum)
+			ExCompressum.exComprecipes();
 	}
 }
