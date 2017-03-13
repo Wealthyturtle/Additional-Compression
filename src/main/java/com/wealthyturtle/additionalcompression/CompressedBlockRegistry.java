@@ -87,8 +87,8 @@ public class CompressedBlockRegistry {
 			}
 		}
 		for (int i = 0; i < max; i++) {
-			ModelLoader.registerItemVariants(compressedItem, new ResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed"));
-			ModelLoader.setCustomModelResourceLocation(compressedItem, i, new ModelResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed", "inventory"));
+			//ModelLoader.registerItemVariants(compressedItem, new ResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed_" + i));
+			ModelLoader.setCustomModelResourceLocation(compressedItem, i, new ModelResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed_" + i, "inventory"));
 		}
 		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max, existingLevels));
 	}

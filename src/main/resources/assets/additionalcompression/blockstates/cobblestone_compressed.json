@@ -3,13 +3,13 @@
 	"defaults": {
 		"transform": "forge:default-block",
 		"model": "cube_all",
+		"uvlock": true,
 		"textures": {
 			"all": "additionalcompression:blocks/cobblestone_compressed_0",
 			"particle": "#all"
 		}
 	},
 	"variants": {
-		"inventory": { "textures": { "all": "additionalcompression:blocks/cobblestone_compressed_2" } },
 		"level": {
 			"0": { "textures": { "all": "additionalcompression:blocks/cobblestone_compressed_0" } },
 			"1": { "textures": { "all": "additionalcompression:blocks/cobblestone_compressed_1" } },
