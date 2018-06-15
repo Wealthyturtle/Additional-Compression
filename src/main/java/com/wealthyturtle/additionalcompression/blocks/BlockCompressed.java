@@ -22,7 +22,7 @@ public class BlockCompressed extends Block {
 
 	int maxCompression;
 	String basicBlock;
-	public static final PropertyInteger LEVELS = PropertyInteger.create("level", 0, 20);
+	public static final PropertyInteger LEVELS = PropertyInteger.create("level", 0, 15);
 
 	public BlockCompressed(String base, int max) {
 		super(Material.ROCK);

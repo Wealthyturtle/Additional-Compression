@@ -25,10 +25,10 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
+		CompressedBlockRegistry.addComprecipes();
 	}
 
 	public void postInit(FMLPostInitializationEvent postEvent) {
-		CompressedBlockRegistry.addComprecipes();
 		//CompressedBlockRegistry.addComprecipesPostInit();
 		if (Loader.isModLoaded("excompressum") && ConfigHandler.exCompressum)
 			ExCompressum.exComprecipes();

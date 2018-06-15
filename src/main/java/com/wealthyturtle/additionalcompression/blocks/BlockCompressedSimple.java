@@ -23,7 +23,7 @@ public class BlockCompressedSimple extends Block {
 		setCreativeTab(AdditionalCompression.creativeTabs);
 		setUnlocalizedName("compressed." + base.toLowerCase());
 		setRegistryName(base.toLowerCase() + "_compressed");
-		setDefaultState(blockState.getBaseState().withProperty(BlockCompressed.levelsArray[0], 0));
+		setDefaultState(blockState.getBaseState().withProperty(BlockCompressed.LEVELS, 0));
 	}
 
 	@Override
@@ -32,12 +32,7 @@ public class BlockCompressedSimple extends Block {
 	}
 
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess idkWhatThisIs, BlockPos pos) {
-		return getDefaultState();
-	}
-
-	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{BlockCompressed.levelsArray[0]});
+		return new BlockStateContainer(this, new IProperty[]{BlockCompressed.LEVELS});
 	}
 }
