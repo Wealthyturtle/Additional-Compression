@@ -3,6 +3,7 @@
 	"defaults": {
 		"transform": "forge:default-block",
 		"model": "cube_all",
+		"uvlock": true,
 		"textures": {
 			"all": "additionalcompression:blocks/gravel_compressed_0",
 			"particle": "#all"

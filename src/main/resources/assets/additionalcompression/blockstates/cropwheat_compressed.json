@@ -5,22 +5,22 @@
 		"model": "cube_all",
 		"uvlock": true,
 		"textures": {
-			"all": "additionalcompression:blocks/_compressed_0",
+			"all": "additionalcompression:blocks/cropwheat_compressed_0",
 			"particle": "#all"
 		}
 	},
 	"variants": {
 		"level": {
-			"0": { "textures": { "all": "additionalcompression:blocks/_compressed_0" } },
-			"1": { "textures": { "all": "additionalcompression:blocks/_compressed_1" } },
-			"2": { "textures": { "all": "additionalcompression:blocks/_compressed_2" } },
-			"3": { "textures": { "all": "additionalcompression:blocks/_compressed_3" } },
-			"4": { "textures": { "all": "additionalcompression:blocks/_compressed_4" } },
-			"5": { "textures": { "all": "additionalcompression:blocks/_compressed_5" } },
-			"6": { "textures": { "all": "additionalcompression:blocks/_compressed_6" } },
-			"7": { "textures": { "all": "additionalcompression:blocks/_compressed_7" } },
-			"8": { "textures": { "all": "additionalcompression:blocks/_compressed_8" } },
-			"9": { "textures": { "all": "additionalcompression:blocks/_compressed_9" } }
+			"0": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_0" } },
+			"1": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_1" } },
+			"2": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_2" } },
+			"3": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_3" } },
+			"4": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_4" } },
+			"5": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_5" } },
+			"6": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_6" } },
+			"7": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_7" } },
+			"8": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_8" } },
+			"9": { "textures": { "all": "additionalcompression:blocks/cropwheat_compressed_9" } }
 		}
 	}
 }
