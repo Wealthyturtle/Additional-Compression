@@ -11,6 +11,7 @@ public class ItemBlockCompressedSimple extends ItemBlock {
 		super(block);
 	}
 
+	@Override
 	public String getItemStackDisplayName(ItemStack item) {
 		return String.format(super.getItemStackDisplayName(item), I18n.translateToLocal("compression.level.0.name"));
 	}

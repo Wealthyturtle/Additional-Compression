@@ -20,10 +20,8 @@ import net.blay09.mods.excompressum.registry.compressedhammer.CompressedHammerRe
 import net.blay09.mods.excompressum.registry.heavysieve.HeavySieveRegistry;
 import net.blay09.mods.excompressum.registry.heavysieve.HeavySieveRegistryEntry;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class ExCompressum {
 

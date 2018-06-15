@@ -3,10 +3,8 @@ package com.wealthyturtle.additionalcompression.proxy;
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry;
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.CompressedInfos;
 
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

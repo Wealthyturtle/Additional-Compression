@@ -1,8 +1,10 @@
 package com.wealthyturtle.additionalcompression.blocks;
 
-import com.google.common.base.Function;
+import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
@@ -15,12 +17,18 @@ public class ItemBlockCompressed extends ItemBlock {
 		setHasSubtypes(true);
 	}
 
-	public int getMetadata(int damage)
-	{
+	@Override
+	public int getMetadata(int damage) {
 		return damage;
 	}
 
+	@Override
 	public String getItemStackDisplayName(ItemStack item) {
 		return String.format(super.getItemStackDisplayName(item), I18n.translateToLocal("compression.level." + (item.getItemDamage() + 1) + ".name"));
+	}
+
+	@Override
+	public void getSubItems(Item item, CreativeTabs tab, List list) {
+		this.block.getSubBlocks(item, tab, list);
 	}
 }

@@ -20,33 +20,9 @@ import net.minecraft.world.World;
 
 public class BlockCompressed extends Block {
 
-	public static final PropertyInteger[] levelsArray = {
-		PropertyInteger.create("level", 0, 1),
-		PropertyInteger.create("level", 0, 2),
-		PropertyInteger.create("level", 0, 3),
-		PropertyInteger.create("level", 0, 4),
-		PropertyInteger.create("level", 0, 5),
-		PropertyInteger.create("level", 0, 6),
-		PropertyInteger.create("level", 0, 7),
-		PropertyInteger.create("level", 0, 8),
-		PropertyInteger.create("level", 0, 9),
-		PropertyInteger.create("level", 0, 10),
-		PropertyInteger.create("level", 0, 11),
-		PropertyInteger.create("level", 0, 12),
-		PropertyInteger.create("level", 0, 13),
-		PropertyInteger.create("level", 0, 14),
-		PropertyInteger.create("level", 0, 15),
-		PropertyInteger.create("level", 0, 16),
-		PropertyInteger.create("level", 0, 17),
-		PropertyInteger.create("level", 0, 18),
-		PropertyInteger.create("level", 0, 19),
-		PropertyInteger.create("level", 0, 20)
-	};
-
-	static int maxCompression = 10;
-	Float miningSpeed = 3.0F;
+	int maxCompression;
 	String basicBlock;
-	public static final PropertyInteger LEVELS = levelsArray[maxCompression - 2];
+	public static final PropertyInteger LEVELS = PropertyInteger.create("level", 0, 20);
 
 	public BlockCompressed(String base, int max) {
 		super(Material.ROCK);
@@ -93,8 +69,9 @@ public class BlockCompressed extends Block {
 
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-		for (int i = 0; i < maxCompression; i++) {
-			list.add(new ItemStack(item, 1, i));
-		}
+		if (tab.equals(AdditionalCompression.creativeTabs))
+			for (int i = 0; i < maxCompression; i++) {
+				list.add(new ItemStack(this, 1, i));
+			}
 	}
 }
