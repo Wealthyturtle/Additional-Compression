@@ -50,10 +50,10 @@ public class ConfigHandler {
 			"dirt:extrautils2:compresseddirt:1:2",
 			"dirt:extrautils2:compresseddirt:2:3",
 			"dirt:extrautils2:compresseddirt:3:4",
-			"gravel:extrautils2:compressedsand:0:1",
-			"gravel:extrautils2:compressedsand:1:2",
-			"blockSand:extrautils2:compressedgravel:0:1",
-			"blockSand:extrautils2:compressedgravel:1:2",
+			"blockSand:extrautils2:compressedsand:0:1",
+			"blockSand:extrautils2:compressedsand:1:2",
+			"gravel:extrautils2:compressedgravel:0:1",
+			"gravel:extrautils2:compressedgravel:1:2",
 			//ex compressum
 			"dust:excompressum:compressed_block:0:1",
 			"cobblestone:excompressum:compressed_block:1:1",
@@ -115,12 +115,12 @@ public class ConfigHandler {
 			"itemNetherStar:minecraft:nether_star:0:1",
 			"cookie:minecraft:cookie:0:1",
 			"bread:minecraft:bread:0:1",
-			"bottleWater:minecraft:potion:0:1",
+			//"bottleWater:minecraft:potion:0:1",
 			//"bucketLava:minecraft:lava_bucket:0:1",
 			//ex nihilo
-			"dust:exnihiloomnia:dust:0:10",
-			"gravelNether:exnihiloomnia:gravel_nether:0:10",
-			"gravelEnd:exnihiloomnia:gravel_ender:0:10"
+			"dust:exnihilocreatio:block_dust:0:10",
+			"gravelNether:exnihilocreatio:block_netherrack_crushed:0:10",
+			"gravelEnd:exnihilocreatio:block_endstone_crushed:0:10"
 	};
 
 	public static void init(File file) {

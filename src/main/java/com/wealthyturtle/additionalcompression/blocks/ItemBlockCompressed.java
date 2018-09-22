@@ -7,6 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 
 public class ItemBlockCompressed extends ItemBlock {
@@ -28,7 +29,7 @@ public class ItemBlockCompressed extends ItemBlock {
 	}
 
 	@Override
-	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		this.block.getSubBlocks(item, tab, list);
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		this.block.getSubBlocks(tab, items);
 	}
 }

@@ -14,6 +14,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -68,10 +69,10 @@ public class BlockCompressed extends Block {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (tab.equals(AdditionalCompression.creativeTabs))
 			for (int i = 0; i < maxCompression; i++) {
-				list.add(new ItemStack(this, 1, i));
+				items.add(new ItemStack(this, 1, i));
 			}
 	}
 }

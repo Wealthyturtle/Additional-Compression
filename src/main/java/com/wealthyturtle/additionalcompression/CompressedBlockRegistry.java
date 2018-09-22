@@ -12,10 +12,12 @@ import com.wealthyturtle.additionalcompression.blocks.BlockCompressedComplicated
 import com.wealthyturtle.additionalcompression.blocks.BlockCompressedSimple;
 import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressed;
 import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressedSimple;
+import com.wealthyturtle.additionalcompression.proxy.CommonProxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
@@ -48,7 +50,7 @@ public class CompressedBlockRegistry {
 			return;
 
 		Block compressedBlock;
-		Item compressedItem;
+		ItemBlock compressedItem;
 		List<Integer> existingLevels = new ArrayList<Integer>();
 
 		if (existingBlocks.containsKey(name)) {
@@ -67,31 +69,28 @@ public class CompressedBlockRegistry {
 				return;
 
 			compressedBlock = new BlockCompressedComplicated(name.toLowerCase(), max, existingLevels);
-			compressedItem = new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
-			GameRegistry.register(compressedBlock);
-			GameRegistry.register(compressedItem);
-
-
+			compressedItem = (ItemBlock) new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
+			CommonProxy.blocks.add(compressedItem);
 		} else {
 			if (max == 1) {
 				compressedBlock = new BlockCompressedSimple(name.toLowerCase());
-				compressedItem = new ItemBlockCompressedSimple(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
-				GameRegistry.register(compressedBlock);
-				GameRegistry.register(compressedItem);
+				compressedItem = (ItemBlock) new ItemBlockCompressedSimple(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
+				CommonProxy.blocks.add(compressedItem);
 			}
 			else {
 				compressedBlock = new BlockCompressed(name.toLowerCase(), max);
-				compressedItem = new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
-				GameRegistry.register(compressedBlock);
-				GameRegistry.register(compressedItem);
+				compressedItem = (ItemBlock) new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
+				CommonProxy.blocks.add(compressedItem);
 			}
 		}
 		for (int i = 0; i < max; i++) {
 			//ModelLoader.registerItemVariants(compressedItem, new ResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed_" + i));
-			ModelLoader.setCustomModelResourceLocation(compressedItem, i, new ModelResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed_" + i, "inventory"));
+			//ModelLoader.setCustomModelResourceLocation(compressedItem, i, new ModelResourceLocation(AdditionalCompression.MODID + ":" + name.toLowerCase() + "_compressed_" + i, "inventory"));
 		}
 		compressedBlocks.add(new CompressedInfos(name, compressedBlock, modID, itemID, meta, max, existingLevels));
 	}
+	
+	static ResourceLocation group = new ResourceLocation("");
 
 	public static void addComprecipes() {
 		for (CompressedInfos block : compressedBlocks) {
@@ -125,12 +124,12 @@ public class CompressedBlockRegistry {
 				OreDictionary.registerOre(blockName, new ItemStack(compressedBlock, 1, 0));
 
 			if (OreDictionary.doesOreNameExist(name))
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', name));
+				GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + 1), group, new ItemStack(compressedBlock, 1, 0), new Object[]{"XXX", "XXX", "XXX", 'X', name});
 			else
-				GameRegistry.addRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', new ItemStack(baseItem, 1, block.baseMeta));
+				GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + 1), group, new ItemStack(compressedBlock, 1, 0), new Object[]{"XXX", "XXX", "XXX", 'X', new ItemStack(baseItem, 1, block.baseMeta)});
 
 			//GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', blockName));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', compressedName + "1x"));
+			GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "backwards_" + compressedName + 0), group, new ItemStack(baseItem, 9, block.baseMeta), new Object[]{"X", 'X', compressedName + "1x"});
 
 			//if (GameRegistry.getFuelValue(new ItemStack(baseItem, 1, block.baseMeta)) != 0) {
 			//GameRegistry.registerFuelHandler(new CompressedBlockFuelHandler(new ItemStack(compressedBlock, 1, 0).getItem(), baseItem, block.baseMeta));
@@ -144,8 +143,8 @@ public class CompressedBlockRegistry {
 				OreDictionary.registerOre(compressedName + (i + 1) + "x", new ItemStack(compressedBlock, 1, i));
 
 				if (i < block.maxCompression - 1) {
-					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, i + 1), "XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"));
-					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 9, i), "X", 'X', compressedName + (i + 2) + "x"));
+					GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + (i + 2)), group, new ItemStack(compressedBlock, 1, i + 1), new Object[]{"XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"});
+					GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "backwards_" + compressedName + (i + 1)), group, new ItemStack(compressedBlock, 9, i), new Object[]{"X", 'X', compressedName + (i + 2) + "x"});
 				}
 			}
 		}
@@ -159,11 +158,11 @@ public class CompressedBlockRegistry {
 				OreDictionary.registerOre(blockName, new ItemStack(compressedBlock, 1, 0));
 
 			if (OreDictionary.doesOreNameExist(name))
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', name));
+				GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + 1), group, new ItemStack(compressedBlock, 1, 0), new Object[]{"XXX", "XXX", "XXX", 'X', name});
 			else
-				GameRegistry.addRecipe(new ItemStack(compressedBlock, 1, 0), "XXX", "XXX", "XXX", 'X', new ItemStack(baseItem, 1, block.baseMeta));
+				GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + 1), group, new ItemStack(compressedBlock, 1, 0), new Object[]{"XXX", "XXX", "XXX", 'X', new ItemStack(baseItem, 1, block.baseMeta)});
 
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(baseItem, 9, block.baseMeta), "X", 'X', compressedName + "1x"));
+			GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "backwards_" + compressedName + 0), group, new ItemStack(baseItem, 9, block.baseMeta), new Object[]{"X", 'X', compressedName + "1x"});
 		}
 
 		for (int i = 0; i < block.maxCompression; i++) {
@@ -180,15 +179,15 @@ public class CompressedBlockRegistry {
 				}
 				Item existingItem = Item.REGISTRY.getObject(new ResourceLocation(existing.modID, existing.itemID));
 
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(existingItem, 9, existing.itemMeta), "X", 'X', compressedName + (i + 2) + "x"));
+				GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "backwards_" + compressedName + (i + 1)), group, new ItemStack(existingItem, 9, existing.itemMeta), new Object[]{"X", 'X', compressedName + (i + 2) + "x"});
 				if (i < block.maxCompression - 1) {
-					GameRegistry.addRecipe(new ItemStack(compressedBlock, 1, i + 1), "XXX", "XXX", "XXX", 'X', new ItemStack(existingItem, 1, existing.itemMeta));
+					GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + (i + 2)), group, new ItemStack(compressedBlock, 1, i + 1), new Object[]{"XXX", "XXX", "XXX", 'X', new ItemStack(existingItem, 1, existing.itemMeta)});
 				}
 			} else {
 				OreDictionary.registerOre(compressedName + (i + 1) + "x", new ItemStack(compressedBlock, 1, i));
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 9, i), "X", 'X', compressedName + (i + 2) + "x"));
+					GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "backwards_" + compressedName + (i + 1)), group, new ItemStack(compressedBlock, 1, i), new Object[]{"X", 'X', compressedName + (i + 2) + "x"});
 				if (i < block.maxCompression - 1) {
-					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(compressedBlock, 1, i + 1), "XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"));
+					GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + (i + 2)), group, new ItemStack(compressedBlock, 1, i + 1), new Object[]{"XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"});
 				}
 			}
 		}

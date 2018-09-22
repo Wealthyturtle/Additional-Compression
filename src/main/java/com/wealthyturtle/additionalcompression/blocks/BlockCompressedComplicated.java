@@ -7,6 +7,7 @@ import com.wealthyturtle.additionalcompression.AdditionalCompression;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 public class BlockCompressedComplicated extends BlockCompressed {
 
@@ -19,11 +20,11 @@ public class BlockCompressedComplicated extends BlockCompressed {
 	}
 
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (tab.equals(AdditionalCompression.creativeTabs))
 			for (int i = 0; i < maxCompression; i++) {
 				if (!existingLevels.contains(i + 1))
-					list.add(new ItemStack(this, 1, i));
+					items.add(new ItemStack(this, 1, i));
 			}
 	}
 }

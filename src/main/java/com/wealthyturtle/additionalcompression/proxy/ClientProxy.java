@@ -3,9 +3,13 @@ package com.wealthyturtle.additionalcompression.proxy;
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry;
 import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.CompressedInfos;
 
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -30,5 +34,19 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent postEvent) {
 		super.postInit(postEvent);
+	}
+	
+	@Override
+	public void registerItems(RegistryEvent.Register<Item> event) {
+		super.registerItems(event);
+
+		for (ItemBlock block : CommonProxy.blocks) {
+				ModelLoader.setCustomMeshDefinition(block, new ItemMeshDefinition() {
+					@Override
+					public ModelResourceLocation getModelLocation(ItemStack stack) {
+						return new ModelResourceLocation(block.getRegistryName(), "level=" + stack.getMetadata());
+					}});
+			
+		}
 	}
 }
