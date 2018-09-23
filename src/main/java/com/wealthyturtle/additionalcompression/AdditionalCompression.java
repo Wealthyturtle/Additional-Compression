@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.wealthyturtle.additionalcompression.proxy.CommonProxy;
 
-@Mod(modid = AdditionalCompression.MODID, version = AdditionalCompression.VERSION, dependencies = "after:excompressum;after:exnihiloomnia")
+@Mod(modid = AdditionalCompression.MODID, version = AdditionalCompression.VERSION, dependencies = "after:excompressum;after:exnihilocreatio")
 
 public class AdditionalCompression {
 

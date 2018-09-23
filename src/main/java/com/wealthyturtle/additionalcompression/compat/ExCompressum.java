@@ -9,26 +9,19 @@ import com.wealthyturtle.additionalcompression.CompressedBlockRegistry.Compresse
 import com.wealthyturtle.additionalcompression.ConfigHandler;
 
 import exnihilocreatio.registries.manager.ExNihiloRegistryManager;
-import exnihilocreatio.registries.registries.HammerRegistry;
-import exnihilocreatio.registries.registries.SieveRegistry;
 import exnihilocreatio.registries.types.HammerReward;
 import net.blay09.mods.excompressum.api.ReloadRegistryEvent.CompressedHammer;
 import net.blay09.mods.excompressum.api.ReloadRegistryEvent.HeavySieve;
-import net.blay09.mods.excompressum.api.compressedhammer.CompressedHammerRegistryEntry;
 import net.blay09.mods.excompressum.api.compressedhammer.CompressedHammerReward;
-import net.blay09.mods.excompressum.api.heavysieve.HeavySieveRegistryEntry;
 import net.blay09.mods.excompressum.api.heavysieve.HeavySieveReward;
 import net.blay09.mods.excompressum.config.ModConfig;
 import net.blay09.mods.excompressum.registry.AutoSieveSkinRegistry;
 import net.blay09.mods.excompressum.registry.ExRegistro;
-import net.blay09.mods.excompressum.registry.compressedhammer.CompressedHammerRegistry;
 import net.blay09.mods.excompressum.registry.heavysieve.HeavySieveRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ExCompressum {

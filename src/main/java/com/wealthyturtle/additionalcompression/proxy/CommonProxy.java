@@ -43,7 +43,6 @@ public class CommonProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent postEvent) {
-		//CompressedBlockRegistry.addComprecipesPostInit();
 		if (Loader.isModLoaded("excompressum") && ConfigHandler.exCompressum)
 			compressum.exComprecipes();
 	}

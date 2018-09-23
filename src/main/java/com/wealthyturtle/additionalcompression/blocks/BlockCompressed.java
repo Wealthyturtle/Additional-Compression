@@ -1,7 +1,5 @@
 package com.wealthyturtle.additionalcompression.blocks;
 
-import java.util.List;
-
 import com.wealthyturtle.additionalcompression.AdditionalCompression;
 
 import net.minecraft.block.Block;
