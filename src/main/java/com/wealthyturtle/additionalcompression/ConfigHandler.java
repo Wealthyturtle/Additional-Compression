@@ -31,6 +31,7 @@ public class ConfigHandler {
 			"cropMelon:minecraft:melon_block:0:1",
 			"cropWheat:minecraft:hay_block:0:1",
 			"cropNetherwart:minecraft:nether_wart_block:0:1",
+			"slime:minecraft:slime:0:1",
 			//extra utils
 			"cobblestone:extrautils2:compressedcobblestone:0:1",
 			"cobblestone:extrautils2:compressedcobblestone:1:2",
@@ -77,7 +78,7 @@ public class ConfigHandler {
 			"dirt:minecraft:dirt:0:10",
 			"clay:minecraft:clay:0:10",
 			"cobblestoneMossy:minecraft:mossy_cobblestone:0:10",
-			//"flint:minecraft:flint:0:10",
+			"flint:minecraft:flint:0:3",
 			"netherrack:minecraft:netherrack:0:10",
 			"soulsand:minecraft:soul_sand:0:10",
 			"endstone:minecraft:end_stone:0:10",
@@ -115,6 +116,7 @@ public class ConfigHandler {
 			"itemNetherStar:minecraft:nether_star:0:1",
 			"cookie:minecraft:cookie:0:1",
 			"bread:minecraft:bread:0:1",
+			"slime:minecraft:slime_ball:0:3",
 			//"bottleWater:minecraft:potion:0:1",
 			//"bucketLava:minecraft:lava_bucket:0:1",
 			//ex nihilo
