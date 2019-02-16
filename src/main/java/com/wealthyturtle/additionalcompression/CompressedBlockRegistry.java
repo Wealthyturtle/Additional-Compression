@@ -95,6 +95,23 @@ public class CompressedBlockRegistry {
 			ItemBlock compressedItem = block.itemBlock;
 			Item baseItem = Item.REGISTRY.getObject(new ResourceLocation(block.modID, block.itemID));
 			Boolean itsComplicated = existingBlocks.containsKey(name);
+			List<ExistingInfos> infoList = existingBlocks.get(name);
+
+			for (int i = 0; i < block.maxCompression; i++) {
+				if (block.existingLevels.contains(i + 1)) {
+					ExistingInfos existing = infoList.get(0);
+					for (ExistingInfos info : infoList){
+						if (info.compressionLevel == i + 1) {
+							existing = info;
+							break;
+						}
+					}
+					if (Item.REGISTRY.getObject(new ResourceLocation(existing.modID, existing.itemID)) == null) {
+						block.existingLevels.remove((Object) (i + 1));
+						infoList.remove(existing);
+					}
+				}
+			}
 
 			String shrunkName = shrinkName(name);
 			if (shrunkName != name &&
