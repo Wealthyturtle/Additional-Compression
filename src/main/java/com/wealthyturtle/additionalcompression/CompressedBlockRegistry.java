@@ -197,7 +197,7 @@ public class CompressedBlockRegistry {
 				}
 			} else {
 				OreDictionary.registerOre(compressedName + (i + 1) + "x", new ItemStack(compressedBlock, 1, i));
-				GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "backwards_" + compressedName + (i + 1)), group, new ItemStack(compressedBlock, 1, i), new Object[]{"X", 'X', compressedName + (i + 2) + "x"});
+				GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "backwards_" + compressedName + (i + 1)), group, new ItemStack(compressedBlock, 9, i), new Object[]{"X", 'X', compressedName + (i + 2) + "x"});
 				if (i < block.maxCompression - 1) {
 					GameRegistry.addShapedRecipe(new ResourceLocation(AdditionalCompression.MODID, "recipe_" + compressedName + (i + 2)), group, new ItemStack(compressedBlock, 1, i + 1), new Object[]{"XXX", "XXX", "XXX", 'X', compressedName + (i + 1) + "x"});
 				}
