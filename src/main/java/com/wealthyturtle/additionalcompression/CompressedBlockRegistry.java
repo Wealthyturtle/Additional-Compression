@@ -15,6 +15,7 @@ import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressedSimple;
 import com.wealthyturtle.additionalcompression.proxy.CommonProxy;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -87,6 +88,9 @@ public class CompressedBlockRegistry {
 	static ResourceLocation group = new ResourceLocation("");
 
 	public static void addComprecipes() {
+		//this is sometimes the case but it must always be the case
+		OreDictionary.registerOre("blockSand", new ItemStack(Blocks.SAND, 1, OreDictionary.WILDCARD_VALUE));
+
 		for (CompressedInfos block : compressedBlocks) {
 			String name = block.compressedName;
 			String compressedName = "compressed" + name.substring(0, 1).toUpperCase() + name.substring(1);
