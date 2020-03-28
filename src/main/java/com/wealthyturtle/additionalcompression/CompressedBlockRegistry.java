@@ -15,6 +15,9 @@ import com.wealthyturtle.additionalcompression.blocks.ItemBlockCompressedSimple;
 import com.wealthyturtle.additionalcompression.proxy.CommonProxy;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -67,7 +70,13 @@ public class CompressedBlockRegistry {
 			if (dontBother > max)
 				return;
 
-			compressedBlock = new BlockCompressedComplicated(name.toLowerCase(), max, existingLevels);
+			final PropertyInteger levelProp = PropertyInteger.create("level", 0, max - 1);
+			compressedBlock = new BlockCompressedComplicated(name.toLowerCase(), max, levelProp, existingLevels) {
+				@Override
+				protected BlockStateContainer createBlockState() {
+					return new BlockStateContainer(this, new IProperty[]{levelProp});
+				}
+			};
 			compressedItem = (ItemBlock) new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
 			CommonProxy.blocks.add(compressedItem);
 		} else {
@@ -77,7 +86,13 @@ public class CompressedBlockRegistry {
 				CommonProxy.blocks.add(compressedItem);
 			}
 			else {
-				compressedBlock = new BlockCompressed(name.toLowerCase(), max);
+				final PropertyInteger levelProp = PropertyInteger.create("level", 0, max - 1);
+				compressedBlock = new BlockCompressed(name.toLowerCase(), max, levelProp) {
+					@Override
+					protected BlockStateContainer createBlockState() {
+						return new BlockStateContainer(this, new IProperty[]{levelProp});
+					}
+				};
 				compressedItem = (ItemBlock) new ItemBlockCompressed(compressedBlock).setRegistryName(name.toLowerCase() + "_compressed");
 				CommonProxy.blocks.add(compressedItem);
 			}

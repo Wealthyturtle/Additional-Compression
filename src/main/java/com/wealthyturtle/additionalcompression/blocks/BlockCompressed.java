@@ -3,6 +3,7 @@ package com.wealthyturtle.additionalcompression.blocks;
 import com.wealthyturtle.additionalcompression.AdditionalCompression;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -21,13 +22,14 @@ public class BlockCompressed extends Block {
 
 	int maxCompression;
 	String basicBlock;
-	public static final PropertyInteger LEVELS = PropertyInteger.create("level", 0, 15);
+	public final PropertyInteger LEVELS;
 
-	public BlockCompressed(String base, int max) {
+	public BlockCompressed(String base, int max, PropertyInteger propLevels) {
 		super(Material.ROCK);
 
 		basicBlock = base;
 		maxCompression = max;
+		LEVELS = propLevels;
 
 		setHardness(6.0F);
 		setCreativeTab(AdditionalCompression.creativeTabs);
@@ -44,11 +46,6 @@ public class BlockCompressed extends Block {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(LEVELS, meta);
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{LEVELS});
 	}
 
 	@Override
